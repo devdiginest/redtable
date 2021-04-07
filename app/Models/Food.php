@@ -230,6 +230,14 @@ class Food extends Model implements HasMedia
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     **/
+    public function meals()
+    {
+        return $this->belongsToMany(\App\Models\Meal::class, 'meal_foods');
+    }
+
+    /**
      * @return float
      */
     public function getPrice(): float

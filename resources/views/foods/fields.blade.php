@@ -186,6 +186,13 @@
             <div class="form-text text-muted">{{ trans("lang.restaurant_select_help") }}</div>
         </div>
     </div>
+    <div class="form-group row ">
+        {!! Form::label('meals[]', trans("lang.meal_plural"),['class' => 'col-3 control-label text-right']) !!}
+        <div class="col-9">
+            {!! Form::select('meals[]', $meal, $mealsSelected, ['class' => 'select2 form-control' , 'multiple'=>'multiple' , 'id' => 'meals']) !!}
+            <div class="form-text text-muted">{{ trans("lang.meal_select_help") }}</div>
+        </div>
+    </div>
 
     <!-- Category Id Field -->
     <div class="form-group row ">

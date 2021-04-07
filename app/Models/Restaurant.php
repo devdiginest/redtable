@@ -270,6 +270,14 @@ class Restaurant extends Model implements HasMedia
         return $this->belongsToMany(\App\Models\Food::class, 'restaurant_foods');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     **/
+    public function meals()
+    {
+        return $this->belongsToMany(\App\Models\Meal::class, 'restaurant_meals');
+    }
+
     public function discountables()
     {
         return $this->morphMany('App\Models\Discountable', 'discountable');

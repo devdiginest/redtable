@@ -2,7 +2,7 @@
 /**
  * File name: 2019_08_29_213822_create_categories_table.php
  * Last modified: 2020.04.30 at 08:21:08
- * Author: SmarterVision - https://codecanyon.net/user/smartervision
+ * Author: Diginestsolutions - https://diginestsolutions.com
  * Copyright (c) 2020
  *
  */

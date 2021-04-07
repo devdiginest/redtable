@@ -25,6 +25,8 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\DB;
 use Prettus\Validator\Exceptions\ValidatorException;
 
+use App\Models\Meal;
+
 class FoodController extends Controller
 {
     /** @var  FoodRepository */
@@ -86,7 +88,11 @@ class FoodController extends Controller
         } else {
             $restaurant = $this->restaurantRepository->myActiveRestaurants()->pluck('name', 'id');
         }
+
+        $meal = Meal::pluck('name', 'id');
+
         $restaurantsSelected = [];
+        $mealsSelected = [];
         $hasCustomField = in_array($this->foodRepository->model(), setting('custom_field_models', []));
         if ($hasCustomField) {
             $customFields = $this->customFieldRepository->findByField('custom_field_model', $this->foodRepository->model());
@@ -95,6 +101,8 @@ class FoodController extends Controller
         return view('foods.create')->with("customFields", isset($html) ? $html : false)
         ->with("restaurant", $restaurant)
         ->with('restaurantsSelected',$restaurantsSelected)
+        ->with("meal", $meal)
+        ->with('mealsSelected',$mealsSelected)
         ->with("category", $category);
     }
 
@@ -165,12 +173,16 @@ class FoodController extends Controller
             return redirect(route('foods.index'));
         }
         $category = $this->categoryRepository->pluck('name', 'id');
+
+        $meal = Meal::pluck('name', 'id');
+
         if (auth()->user()->hasRole('admin')) {
             $restaurant = $this->restaurantRepository->pluck('name', 'id');
         } else {
             $restaurant = $this->restaurantRepository->myRestaurants()->pluck('name', 'id');
         }
         $restaurantsSelected = $food->restaurants()->pluck('restaurants.id')->toArray();
+        $mealsSelected = $food->meals()->pluck('meals.id')->toArray();
         $customFieldsValues = $food->customFieldsValues()->with('customField')->get();
         $customFields = $this->customFieldRepository->findByField('custom_field_model', $this->foodRepository->model());
         $hasCustomField = in_array($this->foodRepository->model(), setting('custom_field_models', []));
@@ -181,6 +193,8 @@ class FoodController extends Controller
         return view('foods.edit')->with('food', $food)->with("customFields", isset($html) ? $html : false)
         ->with("restaurant", $restaurant)
         ->with('restaurantsSelected', $restaurantsSelected)
+        ->with("meal", $meal)
+        ->with('mealsSelected',$mealsSelected)
         ->with("category", $category);
     }
 

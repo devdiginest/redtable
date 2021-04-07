@@ -1196,4 +1196,6 @@ return [
     'dish_edit' => 'Edit Dish',
     'restaurant_name_filter' => 'Select Restaurant',
     'restaurant_select_help' => 'Select the restaurant name for this dish',
+    'meal_select_help' => 'Select the meal name for this dish',
+    'meal_plural' => 'Meals',
 ];
