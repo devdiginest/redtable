@@ -4,7 +4,7 @@ footer a:not(.btn),
 .nav-pills .nav-link.selected,
 .breadcrumb-item > a,
 .page-link {
-    color: #ffc107 !important;
+    color: #ff0000 !important;
 }
 
 .form-group a:not(.btn):hover,
@@ -21,7 +21,7 @@ footer a:not(.btn):hover,
 .dropdown-menu > a.dropdown-item.active,
 .dropdown-menu > a.dropdown-item:active,
 .card .nav-pills .show > .nav-link{
-    background-color: #ffc107 !important;
+    background-color: #ff0000 !important;
     color: white !important;
 }
 
@@ -32,6 +32,11 @@ footer a:not(.btn):hover,
 .page-item.active .page-link,
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
     color: #ffffff !important;
-    background-color: #ffc107;
-    border-color: #ffc107;
+    background-color: #ff0000;
+    border-color: #ff0000;
+}
+.btn-warning{
+	color: #ffffff !important;
+    background-color: #ff0000;
+    border-color: #ff0000;
 }
