@@ -52,6 +52,8 @@ Route::resource('restaurants', 'API\RestaurantAPIController');
 Route::get('restaurant_categories/{rid}', 'API\RestaurantAPIController@getcategories');
 Route::get('restaurant_foods/{rid}', 'API\RestaurantAPIController@getfoods');
 
+Route::get('getrestaurants/{mid}', 'API\MealsAPIController@getrestaurants');
+
 Route::resource('faq_categories', 'API\FaqCategoryAPIController');
 Route::get('foods/categories', 'API\FoodAPIController@categories');
 Route::resource('foods', 'API\FoodAPIController');
@@ -67,6 +69,10 @@ Route::resource('currencies', 'API\CurrencyAPIController');
 Route::resource('slides', 'API\SlideAPIController')->except([
     'show'
 ]);
+
+// Home Sections
+
+Route::get('home', 'API\HomeAPIController@homesections');
 
 Route::middleware('auth:api')->group(function () {
     Route::group(['middleware' => ['role:driver']], function () {

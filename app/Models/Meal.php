@@ -14,10 +14,12 @@ class Meal extends Model
         'description'
     ];
 
+    protected $hidden    = ['created_at', 'updated_at'];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      **/
-    public function meals()
+    public function food()
     {
         return $this->belongsToMany(\App\Models\Food::class, 'meal_foods');
     }
