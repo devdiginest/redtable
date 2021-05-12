@@ -158,8 +158,8 @@ class RestaurantAPIController extends Controller
                     ->with('restaurantReviews')
                     ->with('foods')
                     ->get();
-         return $this->sendResponse($restaurant->toArray(),'Restaurant foods retrieved successfully');           
-        //return response()->json($restaurant);
+                    
+        return response()->json($restaurant);
     }
 
 
