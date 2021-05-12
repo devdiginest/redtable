@@ -10,6 +10,9 @@
 namespace App\Http\Controllers\API;
 
 
+use Illuminate\Support\Facades\Response;
+
+
 use App\Criteria\Restaurants\ActiveCriteria;
 use App\Criteria\Restaurants\RestaurantsOfCuisinesCriteria;
 use App\Criteria\Restaurants\NearCriteria;
@@ -138,6 +141,27 @@ class RestaurantAPIController extends Controller
         ->where('foods.featured','=','1')->get();
         return $this->sendResponse($foods->toArray(),'Restaurant featured foods retrieved successfully');
     }
+
+    /**
+     * Display Restaurant Details.
+     * GET|HEAD /restaurantdetails/{rid}
+     *
+     * @param int $rid
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function getdetails($rid){
+        
+        $restaurant = Restaurant::where('id',$rid)
+                    ->with('categories')
+                    ->with('restaurantReviews')
+                    ->with('foods')
+                    ->get();
+                    
+        return response()->json($restaurant);
+    }
+
 
     /**
      * Display the specified Restaurant.

@@ -48,7 +48,7 @@ Route::resource('categories', 'API\CategoryAPIController');
 Route::resource('restaurants', 'API\RestaurantAPIController');
 
 //Restaurant Categories
-
+Route::get('restaurantdetails/{rid}', 'API\RestaurantAPIController@getdetails');
 Route::get('restaurant_categories/{rid}', 'API\RestaurantAPIController@getcategories');
 Route::get('restaurant_foods/{rid}', 'API\RestaurantAPIController@getfoods');
 Route::get('restaurant_featured/{rid}', 'API\RestaurantAPIController@getfeatured');
