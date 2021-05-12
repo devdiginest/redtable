@@ -85,6 +85,8 @@ class MealsAPIController extends Controller
                         ->select('categories.id','categories.name')
                         ->distinct()->get();
 
+       
+
         return response()->json([
             'categories' => $categories,
             'foods' => $foods,

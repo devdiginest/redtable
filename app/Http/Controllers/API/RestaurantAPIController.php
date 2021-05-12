@@ -120,6 +120,26 @@ class RestaurantAPIController extends Controller
     }
 
     /**
+     * Display Restaurants Featured Foods.
+     * GET|HEAD /restaurant_featured/{rid}
+     *
+     * @param int $rid
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function getfeatured($rid){
+        //  $foods = Restaurant::where('id',$rid)->with('foods')->get();
+        // $foods = Category::join('restaurant_categories','categories.id','=','restaurant_categories.category_id')
+        //         ->where('restaurant_categories.restaurant_id','=',$rid)
+        //         ->with('foods')->get();
+        $foods = Food::join('restaurant_foods','foods.id','=','restaurant_foods.food_id')
+        ->where('restaurant_foods.restaurant_id','=',$rid)
+        ->where('foods.featured','=','1')->get();
+        return $this->sendResponse($foods->toArray(),'Restaurant featured foods retrieved successfully');
+    }
+
+    /**
      * Display the specified Restaurant.
      * GET|HEAD /restaurants/{id}
      *
