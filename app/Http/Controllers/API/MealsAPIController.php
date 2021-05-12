@@ -51,15 +51,44 @@ class MealsAPIController extends Controller
                 $restaurant->media_url = $url.'/'.$media->id.'/'.$media->file_name;
             }
 
-    	// $restArray = array();
-
-    	// foreach ($restaurants as $restaurant) {
-    	// 	$rests = Restaurant::where('id',$restaurant->restaurant_id)->get();
-    	// 	$restArray[] = $rests;
-    	// }
-
     	return response()->json($restaurants);
+    }
 
+    public function getfoods($mid,$rid){
 
+        $url = url('/storage/app/public');
+
+        $foods = DB::table('meal_foods')
+                        ->join('restaurant_foods','meal_foods.food_id','=','restaurant_foods.food_id')
+                        ->join('foods','meal_foods.food_id','=','foods.id')
+                        ->where('meal_foods.meal_id','=',$mid)
+                        ->where('restaurant_foods.restaurant_id','=',$rid)
+                        ->select('foods.id','foods.name','foods.price','foods.discount_price')
+                        ->distinct()->get();
+        foreach ($foods as $food) {
+            $media = DB::table('media')->where('model_id',$food->id)->where('model_type','=','App\Models\Food')->select('id','file_name')->first();
+                
+                $food->media_url = $url.'/'.$media->id.'/'.$media->file_name;
+
+        }
+
+        $restaurants = Restaurant::where('id',$rid)
+                    ->with('restaurantReviews')
+                    ->get();
+
+        $categories = DB::table('meal_foods')
+                        ->join('restaurant_foods','meal_foods.food_id','=','restaurant_foods.food_id')
+                        ->join('foods','meal_foods.food_id','=','foods.id')
+                        ->join('categories','foods.category_id','=','categories.id')
+                        ->where('restaurant_foods.restaurant_id','=',$rid)
+                        ->where('meal_foods.meal_id','=',$mid)
+                        ->select('categories.id','categories.name')
+                        ->distinct()->get();
+
+        return response()->json([
+            'categories' => $categories,
+            'foods' => $foods,
+            'restaurant' => $restaurants
+        ]);
     }
 }

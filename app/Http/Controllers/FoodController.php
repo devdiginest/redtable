@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\DB;
 use Prettus\Validator\Exceptions\ValidatorException;
 
 use App\Models\Meal;
+use App\Models\RestaurantCategory;
 
 class FoodController extends Controller
 {
@@ -116,9 +117,26 @@ class FoodController extends Controller
     public function store(CreateFoodRequest $request)
     {
         $input = $request->all();
+        //return($input);
+        $restArray = $input['restaurants'];
+        
         $customFields = $this->customFieldRepository->findByField('custom_field_model', $this->foodRepository->model());
         try {
+            
+            foreach ($restArray as $restaurants) {
+
+                $resCats = RestaurantCategory::where('restaurant_id',$restaurants)->where('category_id',$input['category_id'])->first();
+
+                if($resCats == null){
+                    $resCategory = new RestaurantCategory;
+                    $resCategory->category_id = $input['category_id'];
+                    $resCategory->restaurant_id = $restaurants;
+                    $resCategory->save();
+                }
+            }
+
             $food = $this->foodRepository->create($input);
+
             $food->customFieldsValues()->createMany(getCustomFieldsValues($customFields, $request));
             if (isset($input['image']) && $input['image']) {
                 $cacheUpload = $this->uploadRepository->getByUuid($input['image']);

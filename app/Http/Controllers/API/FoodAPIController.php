@@ -2,7 +2,7 @@
 /**
  * File name: FoodAPIController.php
  * Last modified: 2020.05.04 at 09:04:19
- * Author: SmarterVision - https://codecanyon.net/user/smartervision
+ * Author: Diginestsolutions - https://diginestsolutions.com
  * Copyright (c) 2020
  *
  */
@@ -17,6 +17,7 @@ use App\Criteria\Foods\TrendingWeekCriteria;
 use App\Http\Controllers\Controller;
 use App\Models\Food;
 use App\Models\Restaurant;
+use App\Models\RestaurantFood;
 use App\Repositories\CustomFieldRepository;
 use App\Repositories\FoodRepository;
 use App\Repositories\UploadRepository;
@@ -66,11 +67,11 @@ class FoodAPIController extends Controller
             $this->foodRepository->pushCriteria(new RequestCriteria($request));
             $this->foodRepository->pushCriteria(new LimitOffsetCriteria($request));
             $this->foodRepository->pushCriteria(new FoodsOfCuisinesCriteria($request));
-            if ($request->get('trending', null) == 'week') {
-                $this->foodRepository->pushCriteria(new TrendingWeekCriteria($request));
-            } else {
-                $this->foodRepository->pushCriteria(new NearCriteria($request));
-            }
+            // if ($request->get('trending', null) == 'week') {
+            //     $this->foodRepository->pushCriteria(new TrendingWeekCriteria($request));
+            // } else {
+            //     $this->foodRepository->pushCriteria(new NearCriteria($request));
+            // }
 
 //            $this->foodRepository->orderBy('closed');
 //            $this->foodRepository->orderBy('area');

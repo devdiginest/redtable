@@ -2,7 +2,7 @@
 /**
  * File name: OrdersOfUserCriteria.php
  * Last modified: 2020.04.30 at 08:24:08
- * Author: SmarterVision - https://codecanyon.net/user/smartervision
+ * Author: Diginest Solutions - http://diginestsolutions.com
  * Copyright (c) 2020
  *
  */
@@ -48,7 +48,8 @@ class OrdersOfUserCriteria implements CriteriaInterface
         } else if (auth()->user()->hasRole('manager')) {
             return $model->join("food_orders", "orders.id", "=", "food_orders.order_id")
                 ->join("foods", "foods.id", "=", "food_orders.food_id")
-                ->join("user_restaurants", "user_restaurants.restaurant_id", "=", "foods.restaurant_id")
+                ->join('restaurant_foods','food_orders.food_id','=','restaurant_foods.food_id')
+                ->join("user_restaurants", "user_restaurants.restaurant_id", "=", "restaurant_foods.restaurant_id")
                 ->where('user_restaurants.user_id', $this->userId)
                 ->groupBy('orders.id')
                 ->select('orders.*');

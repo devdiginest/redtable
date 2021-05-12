@@ -141,6 +141,7 @@ class RestaurantController extends Controller
     public function store(CreateRestaurantRequest $request)
     {
         $input = $request->all();
+        // return($input);
         if (auth()->user()->hasRole(['manager','client'])) {
             $input['users'] = [auth()->id()];
         }
