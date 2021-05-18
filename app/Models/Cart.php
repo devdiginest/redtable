@@ -32,7 +32,8 @@ class Cart extends Model
     public $fillable = [
         'food_id',
         'user_id',
-        'quantity'
+        'quantity',
+        'restaurant_id'
     ];
 
     /**
@@ -43,7 +44,8 @@ class Cart extends Model
     protected $casts = [
         'food_id' => 'integer',
         'user_id' => 'integer',
-        'quantity' => 'integer'
+        'quantity' => 'integer',
+        'restaurant_id' => 'integer',
     ];
 
     /**
@@ -90,6 +92,15 @@ class Cart extends Model
     public function food()
     {
         return $this->belongsTo(\App\Models\Food::class, 'food_id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function restaurant()
+    {
+        //return $this->belongsTo(\App\Models\RestaurantFood::class, 'food_id', 'food_id');
+        return $this->belongsTo(\App\Models\Restaurant::class, 'restaurant_id', 'id');
     }
 
     /**

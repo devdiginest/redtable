@@ -76,6 +76,10 @@ Route::resource('slides', 'API\SlideAPIController')->except([
 
 Route::get('home', 'API\HomeAPIController@homesections');
 
+// Cart 
+
+Route::get('carts', 'API\NewCartAPIController@index');
+
 Route::middleware('auth:api')->group(function () {
     Route::group(['middleware' => ['role:driver']], function () {
         Route::prefix('driver')->group(function () {
@@ -113,7 +117,9 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('notifications', 'API\NotificationAPIController');
 
     Route::get('carts/count', 'API\CartAPIController@count')->name('carts.count');
-    Route::resource('carts', 'API\CartAPIController');
+    // Route::resource('carts', 'API\CartAPIController');
+
+
 
     Route::resource('delivery_addresses', 'API\DeliveryAddressAPIController');
 

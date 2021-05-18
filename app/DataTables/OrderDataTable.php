@@ -2,7 +2,7 @@
 /**
  * File name: OrderDataTable.php
  * Last modified: 2020.04.30 at 08:21:08
- * Author: SmarterVision - https://codecanyon.net/user/smartervision
+ * Author: Diginest Solutions - http://diginestsolutions.com
  * Copyright (c) 2020
  *
  */
