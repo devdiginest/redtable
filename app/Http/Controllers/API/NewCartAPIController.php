@@ -82,6 +82,65 @@ class NewCartAPIController extends Controller
                 ], 409);
             }
     }
+
+    public function edit(Request $request){
+
+    	$validator = Validator::make($request->all(), [
+                'id'       	=> 'required|int|exists:carts,id',
+                'quantity'  => 'required|int'
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status'  => false,
+                    'message' => $validator->errors()
+                ], 409);
+            }
+
+         try {
+
+         		$currentTs = Carbon::now();
+                $id = $request->input('id');
+
+                $cart        = Cart::find($id);
+                $cart->quantity         = $request->input('quantity');
+                $cart->created_at       = $currentTs;
+                $cart->updated_at       = $currentTs;
+                
+                $cart->save();
+
+                return response()->json([
+                    'status'  => true,
+                    'message' => 'Cart Updated Successfully'
+                ], 200);
+            } catch (\Exception $e) {
+            	echo $e;
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'Cart update failed'
+                ], 409);
+            }
+    }
+
+     public function delete($id) {
+
+            $cart = Cart::find($id);
+
+            if ($cart != null) {
+                $cart->delete();
+
+                return response()->json([
+                    'status'  => true,
+                    'message' => 'Cart items deleted'
+                ], 200);
+            }
+            else{
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'No data found'
+                ], 200);
+            } 
+        }
 }
 
 // fXLu7VeYgXDu82SkMxlLPG1mCAXc4EBIx6O5isgYVIKFQiHah0xiOHmzNsBv

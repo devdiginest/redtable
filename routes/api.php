@@ -80,6 +80,8 @@ Route::get('home', 'API\HomeAPIController@homesections');
 
 Route::get('carts', 'API\NewCartAPIController@index');
 Route::post('carts', 'API\NewCartAPIController@create');
+Route::put('carts', 'API\NewCartAPIController@edit');
+Route::delete('carts/{id}', 'API\NewCartAPIController@delete');
 
 Route::middleware('auth:api')->group(function () {
     Route::group(['middleware' => ['role:driver']], function () {
