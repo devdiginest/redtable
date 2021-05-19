@@ -132,6 +132,14 @@ class Order extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function orderTypes()
+    {
+        return $this->belongsTo(\App\Models\OrderType::class, 'order_type', 'id');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
     public function foodOrders()

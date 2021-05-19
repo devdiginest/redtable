@@ -83,6 +83,10 @@ Route::post('carts', 'API\NewCartAPIController@create');
 Route::put('carts', 'API\NewCartAPIController@edit');
 Route::delete('carts/{id}', 'API\NewCartAPIController@delete');
 
+// Order
+
+Route::get('myorders', 'API\NewOrderAPIController@myOrders');
+
 Route::middleware('auth:api')->group(function () {
     Route::group(['middleware' => ['role:driver']], function () {
         Route::prefix('driver')->group(function () {
@@ -113,7 +117,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('favorites/exist', 'API\FavoriteAPIController@exist');
     Route::resource('favorites', 'API\FavoriteAPIController');
 
-    Route::resource('orders', 'API\OrderAPIController');
+    // Route::resource('orders', 'API\OrderAPIController');
 
     Route::resource('food_orders', 'API\FoodOrderAPIController');
 
