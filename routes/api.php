@@ -79,6 +79,7 @@ Route::get('home', 'API\HomeAPIController@homesections');
 // Cart 
 
 Route::get('carts', 'API\NewCartAPIController@index');
+Route::post('carts', 'API\NewCartAPIController@create');
 
 Route::middleware('auth:api')->group(function () {
     Route::group(['middleware' => ['role:driver']], function () {

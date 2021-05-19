@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 use App\Models\Cart;
 use App\Models\User;
@@ -37,6 +39,48 @@ class NewCartAPIController extends Controller
     	
 
     	return response()->json($cartDetails);
+    }
+
+    public function create(Request $request){
+
+    	$validator = Validator::make($request->all(), [
+                'food_id'       	=> 'required|int|exists:foods,id',
+                'restaurant_id'     => 'required|int|exists:restaurants,id',
+                'user_id'    		=> 'required|string|max:100',
+                'quantity'    		=> 'required|int'
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status'  => false,
+                    'message' => $validator->errors()
+                ], 409);
+            }
+
+         try {
+
+         		$currentTs = Carbon::now();
+
+                $cart                   = new Cart;
+                $cart->food_id          = $request->input('food_id');
+                $cart->restaurant_id    = $request->input('restaurant_id');
+                $cart->user_id          = $request->input('user_id');
+                $cart->quantity         = $request->input('quantity');
+                $cart->created_at       = $currentTs;
+                $cart->updated_at       = $currentTs;
+                
+                $cart->save();
+
+                return response()->json([
+                    'status'  => true,
+                    'message' => 'Successfully added to cart'
+                ], 200);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'add to cart failed'
+                ], 409);
+            }
     }
 }
 
