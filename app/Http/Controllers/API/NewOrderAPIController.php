@@ -21,13 +21,6 @@ class NewOrderAPIController extends Controller
     	$user_id = User::where('api_token',$api_token)->pluck('id');
 
     	if($user_id->isNotEmpty()){
-    		// $orderDetails = DB::table('orders')
-    		// 				->join('food_orders','orders.id','=','food_orders.order_id')
-    		// 				->join('foods','food_orders.food_id','=','foods.id')
-    		// 				->join('order_statuses','orders.order_status_id','=','order_statuses.id')
-    		// 				->select('orders.id','foods.name','food_orders.quantity')
-    		// 				->where('user_id',$user_id)
-    		// 				->get();
 
     		$orderDetails = Order::where('user_id',$user_id)
     						->with('orderStatus')
@@ -43,6 +36,20 @@ class NewOrderAPIController extends Controller
     	}
 
     	
+
+    	return response()->json($orderDetails);
+
+    }
+
+    public function show($id){
+
+
+		$orderDetails = Order::where('id',$id)
+						->with('orderStatus')
+						->with('orderTypes')
+						->with('foodOrders.food')
+						->with('restaurant')
+						->get();
 
     	return response()->json($orderDetails);
 

@@ -45,7 +45,8 @@ class Order extends Model
         'delivery_address_id',
         'delivery_fee',
         'active',
-        'driver_id'
+        'driver_id',
+        'restaurant_id'
     ];
 
     /**
@@ -64,6 +65,7 @@ class Order extends Model
         'delivery_fee'=>'double',
         'active'=>'boolean',
         'driver_id' => 'integer',
+        'restaurant_id' => 'integer',
     ];
 
     /**
@@ -76,6 +78,7 @@ class Order extends Model
         'order_status_id' => 'required|exists:order_statuses,id',
         'payment_id' => 'exists:payments,id',
         'driver_id' => 'nullable|exists:users,id',
+        'restaurant_id' => 'required|exists:restaurants,id',
     ];
 
     /**
@@ -137,6 +140,14 @@ class Order extends Model
     public function orderTypes()
     {
         return $this->belongsTo(\App\Models\OrderType::class, 'order_type', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function restaurant()
+    {
+        return $this->belongsTo(\App\Models\Restaurant::class, 'restaurant_id', 'id');
     }
 
     /**

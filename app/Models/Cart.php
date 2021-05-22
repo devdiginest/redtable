@@ -1,9 +1,9 @@
 <?php
 /**
  * File name: Cart.php
- * Last modified: 2020.06.11 at 16:10:52
- * Author: SmarterVision - https://codecanyon.net/user/smartervision
- * Copyright (c) 2020
+ * Last modified: 2021.05.20 at 07:34:52
+ * Author: Diginest Solutions - https://diginestsolutions.com
+ * Copyright (c) 2021
  */
 
 namespace App\Models;
@@ -13,7 +13,6 @@ use Eloquent as Model;
 /**
  * Class Cart
  * @package App\Models
- * @version September 4, 2019, 3:38 pm UTC
  *
  * @property \App\Models\Food food
  * @property \App\Models\User user
@@ -110,6 +109,8 @@ class Cart extends Model
     {
         return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
     }
+
+
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

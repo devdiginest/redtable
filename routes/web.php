@@ -150,6 +150,15 @@ Route::middleware('auth')->group(function () {
         'show'
     ]);
 
+        //delivery charge module
+    Route::get('Delivery-Charges', 'DeliveryChargeController@index');
+    Route::get('Delivery_Charge/Create','DeliveryChargeController@create');
+    Route::post('Delivery_Charge/save','DeliveryChargeController@store');
+    Route::get('Delivery_Charge/{id}/edit','DeliveryChargeController@edit');
+    Route::post('Delivery_Charge/update/{id}','DeliveryChargeController@update');
+    Route::get('Delivery_Charge/destroy/{id}','DeliveryChargeController@destroy');
+    Route::get('/GetArea/{id}','DeliveryChargeController@getarea');
+
     Route::resource('favorites', 'FavoriteController')->except([
         'show'
     ]);

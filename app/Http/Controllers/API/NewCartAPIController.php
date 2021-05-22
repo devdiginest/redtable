@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Validator;
 
 use App\Models\Cart;
 use App\Models\User;
+use App\Models\DeliveryAddress;
+use App\Models\DeliveryCharges;
 
 use Illuminate\Support\Facades\Response;
 
@@ -20,6 +22,9 @@ class NewCartAPIController extends Controller
 
     	
     	$api_token = $request->api_token;
+
+    	$cartTotal = array();
+    	$cartDisCountTotal = array();
 
     	$user_id = User::where('api_token',$api_token)->pluck('id');
 
@@ -36,9 +41,47 @@ class NewCartAPIController extends Controller
                 ], 409);
     	}
 
+    	foreach ($cartDetails as $cartDetail) {
+    		# code...
+    		$deliveryAddress = DeliveryAddress::where('user_id',$user_id)->first();
+    		$cartDetail->deliveryAddress = $deliveryAddress;
+
+    		$cartDetail->itemTotalPrice = $cartDetail->food->price * $cartDetail->quantity;
+    		$cartDetail->itemTotalDicountPrice = $cartDetail->food->discount_price * $cartDetail->quantity;
+
+    		$cartTotal[] = $cartDetail->itemTotalPrice;
+    		$cartDisCountTotal[] = $cartDetail->itemTotalDicountPrice;
+    	}
+
+
+    	$total = array_sum($cartTotal);
+    	$disTotal = array_sum($cartDisCountTotal);
+
+    	$billTotal = $total - $disTotal;
+
+    	// Get Delivery Charge details
+
+    	$area_id = $cartDetail->deliveryAddress->area_id;
+
+    	$delAddress = DeliveryCharges::where('area_id',$area_id)->first();
+
+    	if($billTotal > $delAddress->free_delivery_amount){
+    		$deliveryFee = 0;
+    	}
+    	else{
+    		$deliveryFee = $delAddress->delivery_charge;
+    	}
+
+    	$totalBill = $billTotal + $deliveryFee;
     	
 
-    	return response()->json($cartDetails);
+    	return response()->json([
+    		'cartDetails' => $cartDetails,
+    		'cartTotal'   => $total,
+    		'cartDiscountTotal'   => $disTotal,
+    		'deliveryFee'	=> $deliveryFee,
+    		'totalBill'	=> $totalBill,
+    	]);
     }
 
     public function create(Request $request){

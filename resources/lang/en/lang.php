@@ -1198,4 +1198,15 @@ return [
     'restaurant_select_help' => 'Select the restaurant name for this dish',
     'meal_select_help' => 'Select the meal name for this dish',
     'meal_plural' => 'Meals',
+    'deliverycharge_plural' => 'Delivery Charges',
+    'deliverycharge_desc' => 'Delivery Charge Management',
+    'deliverycharge_table' => 'Delivery Charge List',
+    'deliverycharge_create' => 'Create Delivery Charge',
+    'areaname' => 'Area',
+    'restaurant' => 'Restaurant',
+    'free_delivery_amount' => 'Free Delivery Amount',
+    'delivery_charge' => 'Delivery Charge',
+    'edit_delivery_charge' => 'Edit Delivery Charge',
+
+    'deliverycharge_edit' => 'Edit Delivery Charge',
 ];

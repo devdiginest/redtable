@@ -59,6 +59,10 @@
                             <i class="nav-icon fa fa-comments"></i>@endif<p>{{trans('lang.restaurant_review_plural')}}</p></a>
                 </li>
             @endcan
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('Delivery-Charges') ? 'active' : '' }}" href="{!! url('Delivery-Charges') !!}">@if($icons)
+                        <i class="nav-icon fa fa-money"></i>@endif<p>{{trans('lang.deliverycharge_plural')}}</p></a>
+            </li>
         </ul>
     </li>
 @endcan
