@@ -62,8 +62,11 @@ class NewCartAPIController extends Controller
     	// Get Delivery Charge details
 
     	$area_id = $cartDetail->deliveryAddress->area_id;
+    	$restaurant_id = $cartDetail->restaurant_id;
 
-    	$delAddress = DeliveryCharges::where('area_id',$area_id)->first();
+    	$delAddress = DeliveryCharges::where('area_id',$area_id)->where('restaurant_id',$restaurant_id)->first();
+
+    	// return response()->json($delAddress->free_delivery_amount);
 
     	if($billTotal > $delAddress->free_delivery_amount){
     		$deliveryFee = 0;
