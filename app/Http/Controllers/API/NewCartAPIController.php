@@ -57,7 +57,7 @@ class NewCartAPIController extends Controller
     	$total = array_sum($cartTotal);
     	$disTotal = array_sum($cartDisCountTotal);
 
-    	$billTotal = $total - $disTotal;
+    	$discount = $total - $disTotal;
 
     	// Get Delivery Charge details
 
@@ -68,20 +68,20 @@ class NewCartAPIController extends Controller
 
     	// return response()->json($delAddress->free_delivery_amount);
 
-    	if($billTotal > $delAddress->free_delivery_amount){
+    	if($disTotal > $delAddress->free_delivery_amount){
     		$deliveryFee = 0;
     	}
     	else{
     		$deliveryFee = $delAddress->delivery_charge;
     	}
 
-    	$totalBill = $billTotal + $deliveryFee;
+    	$totalBill = $disTotal + $deliveryFee;
     	
 
     	return response()->json([
     		'cartDetails' => $cartDetails,
     		'cartTotal'   => $total,
-    		'cartDiscountTotal'   => $disTotal,
+    		'cartDiscount'   => $discount,
     		'deliveryFee'	=> $deliveryFee,
     		'totalBill'	=> $totalBill,
     	]);
