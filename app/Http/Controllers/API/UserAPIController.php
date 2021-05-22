@@ -89,6 +89,7 @@ class UserAPIController extends Controller
             $user->assignRole($defaultRoles);
 
         } catch (\Exception $e) {
+            echo $e;
             Log::error($e->getMessage());
             return $this->sendError($e->getMessage(), 401);
         }
