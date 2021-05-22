@@ -2,7 +2,7 @@
 /**
  * File name: RegisterController.php
  * Last modified: 2020.05.21 at 17:23:39
- * Author: SmarterVision - https://codecanyon.net/user/smartervision
+ * Author: Diginest Solutions - http://diginestsolutions.com
  * Copyright (c) 2020
  */
 
