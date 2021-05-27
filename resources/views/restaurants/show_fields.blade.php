@@ -62,19 +62,19 @@
   </div>
 </div>
 
-<!-- Mobile Field -->
+<!-- Email Field -->
 <div class="form-group row col-6">
-  {!! Form::label('mobile', 'Mobile:', ['class' => 'col-3 control-label text-right']) !!}
+  {!! Form::label('email', 'Email:', ['class' => 'col-3 control-label text-right']) !!}
   <div class="col-9">
-    <p>{!! $restaurant->mobile !!}</p>
+    <p>{!! $restaurant->email !!}</p>
   </div>
 </div>
 
-<!-- Information Field -->
+<!-- Working Hours Field -->
 <div class="form-group row col-6">
-  {!! Form::label('information', 'Information:', ['class' => 'col-3 control-label text-right']) !!}
+  {!! Form::label('working_hours', 'Working Hours:', ['class' => 'col-3 control-label text-right']) !!}
   <div class="col-9">
-    <p>{!! $restaurant->information !!}</p>
+    <p>{!! $restaurant->working_hours !!}</p>
   </div>
 </div>
 

@@ -73,6 +73,18 @@ class RestaurantReviewAPIController extends Controller
         return $this->sendResponse($restaurantReview->toArray(), 'Restaurant Review retrieved successfully');
     }
 
+    public function getrestaurants($rid){
+
+        $reviews = RestaurantReview::where('restaurant_id',$rid)->get();
+
+        if ($reviews->isEmpty()) {
+            return $this->sendError('Restaurant Review not found');
+        }
+
+        return $this->sendResponse($reviews->toArray(), 'Restaurant Review retrieved successfully');
+
+    }
+
     /**
      * Store a newly created RestaurantReview in storage.
      *

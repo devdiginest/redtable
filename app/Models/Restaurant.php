@@ -1,9 +1,9 @@
 <?php
 /**
  * File name: Restaurant.php
- * Last modified: 2020.04.30 at 08:21:09
+ * Last modified: 2021.04.30 at 08:21:09
  * Author: Diginest Solutions - https://diginestsolutions.com
- * Copyright (c) 2020
+ * Copyright (c) 2021
  *
  */
 
@@ -62,14 +62,14 @@ class Restaurant extends Model implements HasMedia
         'latitude',
         'longitude',
         'phone',
-        'mobile',
+        'email',
         // 'admin_commission',
         'delivery_fee',
         'default_tax',
         'delivery_range',
         'available_for_delivery',
         'closed',
-        'information',
+        'working_hours',
         'active',
     ];
 
@@ -86,14 +86,14 @@ class Restaurant extends Model implements HasMedia
         'latitude' => 'string',
         'longitude' => 'string',
         'phone' => 'string',
-        'mobile' => 'string',
+        'email' => 'string',
         //'admin_commission' =>'double',
         'delivery_fee'=>'double',
         'default_tax'=>'double',
         'delivery_range'=>'double',
         'available_for_delivery'=>'boolean',
         'closed'=>'boolean',
-        'information' => 'string',
+        'working_hours' => 'string',
         'active' =>'boolean'
     ];
 

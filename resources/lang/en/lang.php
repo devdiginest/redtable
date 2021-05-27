@@ -1209,4 +1209,10 @@ return [
     'edit_delivery_charge' => 'Edit Delivery Charge',
 
     'deliverycharge_edit' => 'Edit Delivery Charge',
+    'working_hours' => 'Working Hours',
+    'restaurant_email_placeholder' => 'Insert Email',
+    'restaurant_email_help' => 'Insert Email',
+    'restaurant_working_hours' => 'Working Hours',
+    'restaurant_working_hours_placeholder' => 'Insert Working Hours',
+    'restaurant_working_hours_help' => 'Insert Working Hours',
 ];

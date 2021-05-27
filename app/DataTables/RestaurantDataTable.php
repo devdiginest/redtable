@@ -139,8 +139,8 @@ class RestaurantDataTable extends DataTable
 
             ],
             [
-                'data' => 'mobile',
-                'title' => trans('lang.restaurant_mobile'),
+                'data' => 'email',
+                'title' => trans('lang.email'),
 
             ],
             [

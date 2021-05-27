@@ -11,20 +11,24 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Slide;
 use App\Models\Meal;
 use App\Models\Restaurant;
+use App\Models\Category;
 
 class HomeAPIController extends Controller
 {
     //
     public function homesections(){
 
-    	$slides = Slide::get();
-    	$meals 	= Meal::get();
-    	$restaurants 	= Restaurant::get();
+    	$slides         = Slide::get();
+    	$meals 	        = Meal::get();
+    	$restaurants    = Restaurant::get();
+        $categories     = Category::select('id','name')->get();
 
-    	return response()->json([
+        return $this->sendResponse([
                 'slides'        => $slides,
                 'meals'         => $meals,
-                'restaurants'   => $restaurants
-            ], 200);
+                'restaurants'   => $restaurants,
+                'categories'   => $categories
+            ], 'Home data retrieved successfully');
+
     }
 }

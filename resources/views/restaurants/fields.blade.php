@@ -95,11 +95,11 @@
 
     <!-- Mobile Field -->
     <div class="form-group row ">
-        {!! Form::label('mobile', trans("lang.restaurant_mobile"), ['class' => 'col-3 control-label text-right']) !!}
+        {!! Form::label('email', trans("lang.email"), ['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
-            {!! Form::text('mobile', null,  ['class' => 'form-control','placeholder'=>  trans("lang.restaurant_mobile_placeholder")]) !!}
+            {!! Form::text('email', null,  ['class' => 'form-control','placeholder'=>  trans("lang.restaurant_email_placeholder")]) !!}
             <div class="form-text text-muted">
-                {{ trans("lang.restaurant_mobile_help") }}
+                {{ trans("lang.restaurant_email_help") }}
             </div>
         </div>
     </div>
@@ -254,13 +254,13 @@
             <div class="form-text text-muted">{{ trans("lang.restaurant_description_help") }}</div>
         </div>
     </div>
-    <!-- Information Field -->
+    <!-- Working Hours Field -->
     <div class="form-group row ">
-        {!! Form::label('information', trans("lang.restaurant_information"), ['class' => 'col-3 control-label text-right']) !!}
+        {!! Form::label('working_hours', trans("lang.restaurant_working_hours"), ['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
-            {!! Form::textarea('information', null, ['class' => 'form-control','placeholder'=>
-             trans("lang.restaurant_information_placeholder")  ]) !!}
-            <div class="form-text text-muted">{{ trans("lang.restaurant_information_help") }}</div>
+            {!! Form::textarea('working_hours', null, ['class' => 'form-control','placeholder'=>
+             trans("lang.restaurant_working_hours_placeholder")  ]) !!}
+            <div class="form-text text-muted">{{ trans("lang.restaurant_working_hours_help") }}</div>
         </div>
     </div>
 

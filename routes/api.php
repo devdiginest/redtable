@@ -3,7 +3,7 @@
  * File name: api.php
  * Last modified: 2020.08.20 at 17:21:16
  * Author: Diginest
- * Copyright (c) 2020
+ * Copyright (c) 2021
  */
 
 /*
@@ -67,6 +67,7 @@ Route::resource('extras', 'API\ExtraAPIController');
 Route::resource('extra_groups', 'API\ExtraGroupAPIController');
 Route::resource('faqs', 'API\FaqAPIController');
 Route::resource('restaurant_reviews', 'API\RestaurantReviewAPIController');
+Route::get('get_restaurant_reviews/{rid}', 'API\RestaurantReviewAPIController@getrestaurants');
 Route::resource('currencies', 'API\CurrencyAPIController');
 Route::resource('slides', 'API\SlideAPIController')->except([
     'show'

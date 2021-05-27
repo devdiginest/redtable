@@ -3,7 +3,7 @@
  * File name: RestaurantController.php
  * Last modified: 2021.03.26 at 08:21:08
  * Author: Diginest Solutions - https://diginestsolutions.com
- * Copyright (c) 2020
+ * Copyright (c) 2021
  *
  */
 

@@ -33,12 +33,12 @@ class NewCartAPIController extends Controller
     					->with('food')
     					->with('restaurant')
     					->get();
+            if($cartDetails->isEmpty()){
+                return $this->sendResponse($cartDetails,'Cart is Empty');
+            }
     	}
     	else{
-    		return response()->json([
-                    'status'  => false,
-                    'message' => 'No User found'
-                ], 409);
+            return $this->sendError('No User found');
     	}
 
     	foreach ($cartDetails as $cartDetail) {
@@ -78,13 +78,21 @@ class NewCartAPIController extends Controller
     	$totalBill = $disTotal + $deliveryFee;
     	
 
-    	return response()->json([
-    		'cartDetails' => $cartDetails,
-    		'cartTotal'   => $total,
-    		'cartDiscount'   => $discount,
-    		'deliveryFee'	=> $deliveryFee,
-    		'totalBill'	=> $totalBill,
-    	]);
+    	// return response()->json([
+    	// 	'cartDetails' => $cartDetails,
+    	// 	'cartTotal'   => $total,
+    	// 	'cartDiscount'   => $discount,
+    	// 	'deliveryFee'	=> $deliveryFee,
+    	// 	'totalBill'	=> $totalBill,
+    	// ]);
+        return $this->sendResponse(
+            [
+            'cartDetails' => $cartDetails,
+            'cartTotal'   => $total,
+            'cartDiscount'   => $discount,
+            'deliveryFee'   => $deliveryFee,
+            'totalBill' => $totalBill,
+        ], 'Cart details retrieved successfully');
     }
 
     public function create(Request $request){
