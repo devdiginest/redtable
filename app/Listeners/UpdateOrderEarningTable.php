@@ -1,9 +1,9 @@
 <?php
 /**
  * File name: UpdateOrderEarningTable.php
- * Last modified: 2020.05.05 at 17:03:49
- * Author: SmarterVision - https://codecanyon.net/user/smartervision
- * Copyright (c) 2020
+ * Last modified: 2021.05.29 at 17:03:49
+ * Author: Diginest Solutions - https://diginestsolutions.com
+ * Copyright (c) 2021
  *
  */
 
@@ -40,7 +40,7 @@ class UpdateOrderEarningTable
     public function handle($event)
     {
         if ($event->oldStatus != $event->updatedOrder->payment->status) {
-            $this->earningRepository->pushCriteria(new EarningOfRestaurantCriteria($event->updatedOrder->foodOrders[0]->food->restaurant->id));
+            $this->earningRepository->pushCriteria(new EarningOfRestaurantCriteria($event->updatedOrder->restaurant->id));
             $restaurant = $this->earningRepository->first();
 //            dd($restaurant);
             $amount = 0;

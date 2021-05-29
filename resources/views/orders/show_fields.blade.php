@@ -25,6 +25,11 @@
     <p>{!! $order->created_at !!}</p>
   </div>
 
+  {!! Form::label('delivery_note', trans('Delivery Note'), ['class' => 'col-4 control-label']) !!}
+    <div class="col-8">
+        <p>{!! $order->delivery_note !!}</p>
+    </div>
+
 
 </div>
 
@@ -58,40 +63,33 @@
         <p>{!! $order->updated_at !!}</p>
     </div>
 
+
 </div>
 
 <!-- Id Field -->
 <div class="form-group row col-md-4 col-sm-12">
     {!! Form::label('restaurant', trans('lang.restaurant'), ['class' => 'col-4 control-label']) !!}
     <div class="col-8">
-        @if(isset($order->foodOrders[0]))
-            <p>{!! $order->foodOrders[0]->food->restaurant->name !!}</p>
+        @if(isset($order->restaurant))
+            <p>{!! $order->restaurant->name !!}</p>
         @endif
     </div>
 
     {!! Form::label('restaurant_address', trans('lang.restaurant_address'), ['class' => 'col-4 control-label']) !!}
     <div class="col-8">
-        @if(isset($order->foodOrders[0]))
-            <p>{!! $order->foodOrders[0]->food->restaurant->address !!}</p>
+        @if(isset($order->restaurant))
+            <p>{!! $order->restaurant->address !!}</p>
         @endif
     </div>
 
     {!! Form::label('restaurant_phone', trans('lang.restaurant_phone'), ['class' => 'col-4 control-label']) !!}
     <div class="col-8">
-        @if(isset($order->foodOrders[0]))
-            <p>{!! $order->foodOrders[0]->food->restaurant->phone !!}</p>
+        @if(isset($order->restaurant))
+            <p>{!! $order->restaurant->phone !!}</p>
         @endif
     </div>
 
-    {!! Form::label('driver', trans('lang.driver'), ['class' => 'col-4 control-label']) !!}
-    <div class="col-8">
-        @if(isset($order->driver))
-            <p>{!! $order->driver->name !!}</p>
-        @else
-            <p>{{trans('lang.order_driver_not_assigned')}}</p>
-        @endif
-
-    </div>
+    
 
     {!! Form::label('hint', 'Hint:', ['class' => 'col-4 control-label']) !!}
     <div class="col-8">

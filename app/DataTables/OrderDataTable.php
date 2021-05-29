@@ -41,8 +41,8 @@ class OrderDataTable extends DataTable
             ->editColumn('updated_at', function ($order) {
                 return getDateColumn($order, 'updated_at');
             })
-            ->editColumn('delivery_fee', function ($order) {
-                return getPriceColumn($order, 'delivery_fee');
+            ->editColumn('payment.price', function ($order) {
+                return $order->payment->price;
             })
             ->editColumn('tax', function ($order) {
                 return $order->tax . "%";
@@ -89,14 +89,8 @@ class OrderDataTable extends DataTable
 
             ],
             [
-                'data' => 'tax',
-                'title' => trans('lang.order_tax'),
-                'searchable' => false,
-
-            ],
-            [
-                'data' => 'delivery_fee',
-                'title' => trans('lang.order_delivery_fee'),
+                'data' => 'payment.price',
+                'title' => trans('lang.payment_price'),
                 'searchable' => false,
 
             ],
@@ -156,7 +150,7 @@ class OrderDataTable extends DataTable
     public function query(Order $model)
     {
         if (auth()->user()->hasRole('admin')) {
-            return $model->newQuery()->with("user")->with("orderStatus")->with('payment');
+            return $model->newQuery()->with("user")->with("orderStatus")->with('payment')->with("restaurant");
         } else if (auth()->user()->hasRole('manager')) {
             return $model->newQuery()->with("user")->with("orderStatus")->with('payment')
                 ->join("food_orders", "orders.id", "=", "food_orders.order_id")

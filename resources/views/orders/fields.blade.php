@@ -12,13 +12,7 @@
     </div>
 
     <!-- Driver Id Field -->
-    <div class="form-group row ">
-        {!! Form::label('driver_id', trans("lang.order_driver_id"),['class' => 'col-3 control-label text-right']) !!}
-        <div class="col-9">
-            {!! Form::select('driver_id', $driver, null, ['data-empty'=>trans("lang.order_driver_id_placeholder"),'class' => 'select2 not-required form-control']) !!}
-            <div class="form-text text-muted">{{ trans("lang.order_driver_id_help") }}</div>
-        </div>
-    </div>
+    
 
     <!-- Order Status Id Field -->
     <div class="form-group row ">
@@ -58,35 +52,13 @@
 <div style="flex: 50%;max-width: 50%;padding: 0 4px;" class="column">
 
     <!-- Tax Field -->
-    <div class="form-group row ">
-        {!! Form::label('tax', trans("lang.order_tax"), ['class' => 'col-3 control-label text-right']) !!}
-        <div class="col-9">
-            {!! Form::number('tax', null,  ['class' => 'form-control', 'step'=>"any",'placeholder'=>  trans("lang.order_tax_placeholder")]) !!}
-            <div class="form-text text-muted">
-                {{ trans("lang.order_tax_help") }}
-            </div>
-        </div>
-    </div>
+    
 
     <!-- delivery_fee Field -->
-    <div class="form-group row ">
-        {!! Form::label('delivery_fee', trans("lang.order_delivery_fee"), ['class' => 'col-3 control-label text-right']) !!}
-        <div class="col-9">
-            {!! Form::number('delivery_fee', null,  ['class' => 'form-control','step'=>"any",'placeholder'=>  trans("lang.order_delivery_fee_placeholder")]) !!}
-            <div class="form-text text-muted">
-                {{ trans("lang.order_delivery_fee_help") }}
-            </div>
-        </div>
-    </div>
+    
     <!-- Hint Field -->
-    <div class="form-group row ">
-        {!! Form::label('hint', trans("lang.order_hint"), ['class' => 'col-3 control-label text-right']) !!}
-        <div class="col-9">
-            {!! Form::textarea('hint', null, ['class' => 'form-control','placeholder'=>
-             trans("lang.order_hint_placeholder")  ]) !!}
-            <div class="form-text text-muted">{{ trans("lang.order_hint_help") }}</div>
-        </div>
-    </div>
+    <input type="hidden" name="restaurant_id" value="{{ $restaurant }}" />
+    <input type="hidden" name="order_type" value="{{ $order_type }}" />
 </div>
 @if($customFields)
     <div class="clearfix"></div>

@@ -89,6 +89,7 @@ Route::delete('carts/{id}', 'API\NewCartAPIController@delete');
 Route::get('myorders', 'API\NewOrderAPIController@myOrders');
 Route::get('orders/{id}', 'API\NewOrderAPIController@show');
 Route::post('create_order', 'API\NewOrderAPIController@store');
+Route::put('cancel_order/{oid}', 'API\NewOrderAPIController@cancel_order');
 
 Route::middleware('auth:api')->group(function () {
     Route::group(['middleware' => ['role:driver']], function () {

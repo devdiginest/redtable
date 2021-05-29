@@ -243,4 +243,23 @@ class NewOrderAPIController extends Controller
 
         return $this->sendResponse($order->toArray(), __('lang.saved_successfully', ['operator' => __('lang.order')]));
     }
+
+    public function cancel_order($oid){
+        
+        $order = Order::where('id',$oid)->where('active',1)->first();
+        if($order != null){
+            if($order->order_status_id = 1){
+                $orderStatus = Order::find($oid);
+                $orderStatus->active = 0;
+                $orderStatus->save();
+            }
+            else{
+                return $this->sendError('Not able to cancel the order');
+            }
+        }
+        else{
+            return $this->sendError('Order not found');
+        }
+        return $this->sendResponse($order->toArray(), );
+    }
 }

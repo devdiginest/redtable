@@ -1,9 +1,9 @@
 <?php
 /**
  * File name: OrderController.php
- * Last modified: 2020.06.11 at 16:10:52
- * Author: SmarterVision - https://codecanyon.net/user/smartervision
- * Copyright (c) 2020
+ * Last modified: 2021.06.11 at 16:10:52
+ * Author: diginest solutions - https://diginestsolutions.com
+ * Copyright (c) 2021
  */
 
 namespace App\Http\Controllers;
@@ -176,11 +176,10 @@ class OrderController extends Controller
             return redirect(route('orders.index'));
         }
 
-        $restaurant = $order->foodOrders()->first();
-        $restaurant = isset($restaurant) ? $restaurant->food['restaurant_id'] : 0;
+        $restaurant = $order->restaurant_id;
+        $order_type = $order->order_type;
 
         $user = $this->userRepository->getByCriteria(new ClientsCriteria())->pluck('name', 'id');
-        $driver = $this->userRepository->getByCriteria(new DriversOfRestaurantCriteria($restaurant))->pluck('name', 'id');
         $orderStatus = $this->orderStatusRepository->pluck('status', 'id');
 
 
@@ -191,7 +190,8 @@ class OrderController extends Controller
             $html = generateCustomField($customFields, $customFieldsValues);
         }
 
-        return view('orders.edit')->with('order', $order)->with("customFields", isset($html) ? $html : false)->with("user", $user)->with("driver", $driver)->with("orderStatus", $orderStatus);
+        return view('orders.edit')->with('order', $order)->with("customFields", isset($html) ? $html : false)->with("user", $user)->with("orderStatus", $orderStatus)->with("restaurant",$restaurant)
+        ->with("order_type",$order_type);
     }
 
     /**

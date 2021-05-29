@@ -31,12 +31,7 @@
 </div>
 
 <!-- Extras Field -->
-<div class="form-group row col-6">
-  {!! Form::label('extras', 'Extras:', ['class' => 'col-3 control-label text-right']) !!}
-  <div class="col-9">
-    <p>{!! $foodOrder->extras !!}</p>
-  </div>
-</div>
+
 
 <!-- Order Id Field -->
 <div class="form-group row col-6">

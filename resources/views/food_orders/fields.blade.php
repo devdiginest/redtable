@@ -37,13 +37,7 @@
 <div style="flex: 50%;max-width: 50%;padding: 0 4px;" class="column">
 
 <!-- Extras Field -->
-<div class="form-group row ">
-  {!! Form::label('extras[]', trans("lang.food_order_extras"),['class' => 'col-3 control-label text-right']) !!}
-  <div class="col-9">
-    {!! Form::select('extras[]', $extra, $extrasSelected, ['class' => 'select2 form-control' , 'multiple'=>'multiple']) !!}
-    <div class="form-text text-muted">{{ trans("lang.food_order_extras_help") }}</div>
-  </div>
-</div>
+
 
 
 <!-- Order Id Field -->
