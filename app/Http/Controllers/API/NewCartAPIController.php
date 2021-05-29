@@ -78,13 +78,7 @@ class NewCartAPIController extends Controller
     	$totalBill = $disTotal + $deliveryFee;
     	
 
-    	// return response()->json([
-    	// 	'cartDetails' => $cartDetails,
-    	// 	'cartTotal'   => $total,
-    	// 	'cartDiscount'   => $discount,
-    	// 	'deliveryFee'	=> $deliveryFee,
-    	// 	'totalBill'	=> $totalBill,
-    	// ]);
+    	
         return $this->sendResponse(
             [
             'cartDetails' => $cartDetails,
@@ -105,10 +99,9 @@ class NewCartAPIController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return response()->json([
-                    'status'  => false,
-                    'message' => $validator->errors()
-                ], 409);
+
+                return $this->sendError($validator->errors());
+                
             }
 
          try {
@@ -125,15 +118,11 @@ class NewCartAPIController extends Controller
                 
                 $cart->save();
 
-                return response()->json([
-                    'status'  => true,
-                    'message' => 'Successfully added to cart'
-                ], 200);
+                return $this->sendResponse($cart,'Successfully added to cart');
+
+                
             } catch (\Exception $e) {
-                return response()->json([
-                    'status'  => false,
-                    'message' => 'add to cart failed'
-                ], 409);
+                return $this->sendError('Add to cart failed');
             }
     }
 
@@ -145,10 +134,7 @@ class NewCartAPIController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return response()->json([
-                    'status'  => false,
-                    'message' => $validator->errors()
-                ], 409);
+                return $this->sendError($validator->errors());
             }
 
          try {
@@ -163,16 +149,11 @@ class NewCartAPIController extends Controller
                 
                 $cart->save();
 
-                return response()->json([
-                    'status'  => true,
-                    'message' => 'Cart Updated Successfully'
-                ], 200);
+                return $this->sendResponse($cart,'Cart Updated Successfully');
+
             } catch (\Exception $e) {
             	echo $e;
-                return response()->json([
-                    'status'  => false,
-                    'message' => 'Cart update failed'
-                ], 409);
+                return $this->sendError('failed to update cart');
             }
     }
 
@@ -183,18 +164,10 @@ class NewCartAPIController extends Controller
             if ($cart != null) {
                 $cart->delete();
 
-                return response()->json([
-                    'status'  => true,
-                    'message' => 'Cart items deleted'
-                ], 200);
+                return $this->sendResponse($cart,'Cart items deleted');
             }
             else{
-                return response()->json([
-                    'status'  => false,
-                    'message' => 'No data found'
-                ], 200);
+                return $this->sendError('no data found');
             } 
         }
 }
-
-// fXLu7VeYgXDu82SkMxlLPG1mCAXc4EBIx6O5isgYVIKFQiHah0xiOHmzNsBv

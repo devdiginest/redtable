@@ -88,6 +88,7 @@ Route::delete('carts/{id}', 'API\NewCartAPIController@delete');
 
 Route::get('myorders', 'API\NewOrderAPIController@myOrders');
 Route::get('orders/{id}', 'API\NewOrderAPIController@show');
+Route::post('create_order', 'API\NewOrderAPIController@store');
 
 Route::middleware('auth:api')->group(function () {
     Route::group(['middleware' => ['role:driver']], function () {
@@ -131,6 +132,8 @@ Route::middleware('auth:api')->group(function () {
 
 
     Route::resource('delivery_addresses', 'API\DeliveryAddressAPIController');
+    Route::post('create_address', 'API\DeliveryAddressAPIController@create');
+    Route::put('edit_address', 'API\DeliveryAddressAPIController@edit');
 
     Route::resource('area', 'API\AreaAPIController');
 

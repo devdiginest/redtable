@@ -23,8 +23,7 @@ class FoodOrderRepository extends BaseRepository
         'price',
         'quantity',
         'food_id',
-        'order_id',
-        'restaurant_id'
+        'order_id'
     ];
 
     /**

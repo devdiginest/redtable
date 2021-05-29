@@ -13,6 +13,8 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Exceptions\RepositoryException;
 use Prettus\Validator\Exceptions\ValidatorException;
 
+use Illuminate\Support\Facades\Validator;
+
 /**
  * Class DeliveryAddressController
  * @package App\Http\Controllers\API
@@ -139,5 +141,86 @@ class DeliveryAddressAPIController extends Controller
 
         return $this->sendResponse($address, __('lang.deleted_successfully',['operator' => __('lang.delivery_address')]));
 
+    }
+
+    public function create(Request $request){
+        $validator = Validator::make($request->all(), [
+                'description'       => 'required|string|max:100',
+                'address'           => 'required|string|max:150',
+                'default'           => 'required|numeric|max:1',
+                'user_id'           => 'required|numeric|exists:users,id',
+                'area_id'           => 'required|numeric|exists:areas,id',
+            ]);
+
+
+            if ($validator->fails()) {
+                return $this->sendError($validator->errors());
+            }
+
+            $description = $request->input('description');
+            $address = $request->input('address');
+            $default = $request->input('default');
+            $user_id = $request->input('user_id');
+            $area_id = $request->input('area_id');
+
+            try {
+                
+                    
+                    $deliveryAddress                = new DeliveryAddress;
+                    $deliveryAddress->description   = $description;
+                    $deliveryAddress->address       = $address;
+                    $deliveryAddress->is_default    = $default;
+                    $deliveryAddress->user_id       = $user_id;
+                    $deliveryAddress->area_id       = $area_id;
+                    $deliveryAddress->save();
+
+                    return $this->sendResponse($deliveryAddress,'Successfully added new address');
+                
+               
+            } catch (\Exception $e) {
+                return $this->sendError('failed to add address');
+            }
+    }
+
+    public function edit(Request $request){
+        $validator = Validator::make($request->all(), [
+                'id'                => 'required|int|exists:delivery_addresses,id',
+                'description'       => 'required|string|max:100',
+                'address'           => 'required|string|max:150',
+                'default'           => 'required|numeric|max:1',
+                'user_id'           => 'required|numeric|exists:users,id',
+                'area_id'           => 'required|numeric|exists:areas,id',
+            ]);
+
+
+            if ($validator->fails()) {
+                return $this->sendError($validator->errors());
+            }
+
+            $id = $request->input('id');
+            $description = $request->input('description');
+            $address = $request->input('address');
+            $default = $request->input('default');
+            $user_id = $request->input('user_id');
+            $area_id = $request->input('area_id');
+
+            try {
+                
+                    
+                    $deliveryAddress                = DeliveryAddress::find($id);
+                    $deliveryAddress->description   = $description;
+                    $deliveryAddress->address       = $address;
+                    $deliveryAddress->is_default    = $default;
+                    $deliveryAddress->user_id       = $user_id;
+                    $deliveryAddress->area_id       = $area_id;
+                    $deliveryAddress->save();
+                    
+
+                    return $this->sendResponse($deliveryAddress,'Address edited successfully');
+                
+               
+            } catch (\Exception $e) {
+                return $this->sendError('failed to edit address');
+            }
     }
 }

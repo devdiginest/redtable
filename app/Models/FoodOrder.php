@@ -35,8 +35,7 @@ class FoodOrder extends Model
         'price',
         'quantity',
         'food_id',
-        'order_id',
-        'restaurant_id'
+        'order_id'
     ];
 
     /**
@@ -48,8 +47,7 @@ class FoodOrder extends Model
         'price' => 'double',
         'quantity' => 'integer',
         'food_id' => 'integer',
-        'order_id' => 'integer',
-        'restaurant_id' => 'integer'
+        'order_id' => 'integer'
     ];
 
     /**
@@ -60,8 +58,7 @@ class FoodOrder extends Model
     public static $rules = [
         'price' => 'required',
         'food_id' => 'required|exists:foods,id',
-        'order_id' => 'required|exists:orders,id',
-        'restaurant_id' => 'required|exists:restaurants,id'
+        'order_id' => 'required|exists:orders,id'
     ];
 
     /**
@@ -119,8 +116,8 @@ class FoodOrder extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function restaurant()
-    {
-        return $this->belongsTo(\App\Models\Restaurant::class, 'restaurant_id', 'id');
-    }
+    // public function restaurant()
+    // {
+    //     return $this->belongsTo(\App\Models\Restaurant::class, 'restaurant_id', 'id');
+    // }
 }

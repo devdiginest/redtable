@@ -39,6 +39,7 @@ class Order extends Model
     public $fillable = [
         'user_id',
         'order_status_id',
+        'order_type',
         'tax',
         'hint',
         'payment_id',
@@ -46,7 +47,8 @@ class Order extends Model
         'delivery_fee',
         'active',
         'driver_id',
-        'restaurant_id'
+        'restaurant_id',
+        'delivery_note'
     ];
 
     /**
@@ -57,6 +59,7 @@ class Order extends Model
     protected $casts = [
         'user_id' => 'integer',
         'order_status_id' => 'integer',
+        'order_type' => 'integer',
         'tax' => 'double',
         'hint' => 'string',
         'status' => 'string',
@@ -66,6 +69,7 @@ class Order extends Model
         'active'=>'boolean',
         'driver_id' => 'integer',
         'restaurant_id' => 'integer',
+        'delivery_note' => 'string',
     ];
 
     /**
@@ -76,6 +80,7 @@ class Order extends Model
     public static $rules = [
         'user_id' => 'required|exists:users,id',
         'order_status_id' => 'required|exists:order_statuses,id',
+        'order_type' => 'required|exists:order_types,id',
         'payment_id' => 'exists:payments,id',
         'driver_id' => 'nullable|exists:users,id',
         'restaurant_id' => 'required|exists:restaurants,id',

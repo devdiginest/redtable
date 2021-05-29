@@ -22,12 +22,15 @@ class OrderRepository extends BaseRepository
     protected $fieldSearchable = [
         'user_id',
         'order_status_id',
+        'order_type',
         'tax',
         'hint',
         'payment_id',
         'delivery_address_id',
         'active',
         'driver_id',
+        'restaurant_id',
+        'delivery_note'
     ];
 
     /**
