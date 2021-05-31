@@ -260,6 +260,6 @@ class NewOrderAPIController extends Controller
         else{
             return $this->sendError('Order not found');
         }
-        return $this->sendResponse($order->toArray(), );
+        return $this->sendResponse($order->toArray(), 'Order Cancelled');
     }
 }

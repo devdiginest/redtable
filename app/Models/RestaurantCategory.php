@@ -20,4 +20,12 @@ class RestaurantCategory extends Model
     public $table = 'restaurant_categories';
     
     public $timestamps = false;
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function restaurant()
+    {
+        return $this->belongsTo(\App\Models\Restaurant::class, 'restaurant_id', 'id');
+    }
 }

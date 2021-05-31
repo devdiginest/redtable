@@ -56,6 +56,8 @@ Route::get('restaurant_featured/{rid}', 'API\RestaurantAPIController@getfeatured
 Route::get('getrestaurants/{mid}', 'API\MealsAPIController@getrestaurants');
 Route::get('getmeals_foods/{mid}/{rid}', 'API\MealsAPIController@getfoods');
 
+Route::get('restaurants_categories/{cid}', 'API\CategoryAPIController@get_restaurants');
+
 Route::resource('faq_categories', 'API\FaqCategoryAPIController');
 Route::get('foods/categories', 'API\FoodAPIController@categories');
 Route::resource('foods', 'API\FoodAPIController');
@@ -141,6 +143,7 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('delivery_charges', 'API\DeliveryChargeAPIController');
 
     Route::get('get_delivery_charges/{id}/{restaurantid}', 'API\DeliveryChargeAPIController@search');
+    Route::get('get_area_restaurants/{restaurantid}', 'API\DeliveryChargeAPIController@getarea');
 
     Route::resource('drivers', 'API\DriverAPIController');
 

@@ -1,9 +1,9 @@
 <?php
 /**
  * File name: CategoryAPIController.php
- * Last modified: 2020.05.04 at 09:04:18
- * Author: SmarterVision - https://codecanyon.net/user/smartervision
- * Copyright (c) 2020
+ * Last modified: 2021.05.31 at 09:04:18
+ * Author: Diginest Solutions - https://diginestsolutions.com
+ * Copyright (c) 2021
  *
  */
 
@@ -14,6 +14,7 @@ use App\Criteria\Categories\CategoriesOfCuisinesCriteria;
 use App\Criteria\Categories\CategoriesOfRestaurantCriteria;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\RestaurantCategory;
 use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
@@ -159,5 +160,19 @@ class CategoryAPIController extends Controller
         $category = $this->categoryRepository->delete($id);
 
         return $this->sendResponse($category, __('lang.deleted_successfully', ['operator' => __('lang.category')]));
+    }
+
+    // Get restaurants based on categories
+
+    public function get_restaurants($cid){
+        
+        $restaurants = RestaurantCategory::where('category_id',$cid)->with('restaurant')->get();
+
+        if ($restaurants->isEmpty()) {
+            return $this->sendError('No restaurants found');
+        }
+
+        return $this->sendResponse($restaurants,'Restaurants retrieved successfully');
+
     }
 }

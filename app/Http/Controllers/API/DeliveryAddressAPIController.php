@@ -164,7 +164,7 @@ class DeliveryAddressAPIController extends Controller
             $area_id = $request->input('area_id');
 
             try {
-                
+
                     
                     $deliveryAddress                = new DeliveryAddress;
                     $deliveryAddress->description   = $description;
@@ -173,6 +173,8 @@ class DeliveryAddressAPIController extends Controller
                     $deliveryAddress->user_id       = $user_id;
                     $deliveryAddress->area_id       = $area_id;
                     $deliveryAddress->save();
+
+                    $getAddresses = DeliveryAddress::where('user_id',$user_id)->whereNotIn('id',[$deliveryAddress->id])->update(['is_default' => 0]);
 
                     return $this->sendResponse($deliveryAddress,'Successfully added new address');
                 
@@ -214,6 +216,8 @@ class DeliveryAddressAPIController extends Controller
                     $deliveryAddress->user_id       = $user_id;
                     $deliveryAddress->area_id       = $area_id;
                     $deliveryAddress->save();
+
+                    $getAddresses = DeliveryAddress::where('user_id',$user_id)->whereNotIn('id',[$id])->update(['is_default' => 0]);
                     
 
                     return $this->sendResponse($deliveryAddress,'Address edited successfully');
