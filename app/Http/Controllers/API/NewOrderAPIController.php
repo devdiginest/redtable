@@ -56,6 +56,9 @@ class NewOrderAPIController extends Controller
 
     	$user_id = User::where('api_token',$api_token)->pluck('id');
 
+        $orderTotal = array();
+        $orderDisCountTotal = array();
+
     	if($user_id->isNotEmpty()){
 
     		$orderDetails = Order::where('user_id',$user_id)
@@ -65,7 +68,7 @@ class NewOrderAPIController extends Controller
                             ->with('restaurant')
     						->get();
 
-            foreach()
+            
     	}
     	else{
     		return $this->sendError('no user found');
