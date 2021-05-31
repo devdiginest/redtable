@@ -62,7 +62,10 @@ class NewOrderAPIController extends Controller
     						->with('orderStatus')
     						->with('orderTypes')
     						->with('foodOrders.food')
+                            ->with('restaurant')
     						->get();
+
+            foreach()
     	}
     	else{
     		return $this->sendError('no user found');
@@ -250,6 +253,7 @@ class NewOrderAPIController extends Controller
         if($order != null){
             if($order->order_status_id = 1){
                 $orderStatus = Order::find($oid);
+                $orderStatus->order_status_id = 6;
                 $orderStatus->active = 0;
                 $orderStatus->save();
             }
