@@ -66,6 +66,7 @@ class NewOrderAPIController extends Controller
     						->with('orderTypes')
     						->with('foodOrders.food')
                             ->with('restaurant')
+                            ->orderBy('id', 'desc')
     						->get();
 
             
