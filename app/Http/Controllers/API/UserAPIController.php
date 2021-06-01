@@ -75,6 +75,14 @@ class UserAPIController extends Controller
                 'phone' => 'required|unique:users|string',
                 'password' => 'required',
             ]);
+
+
+            if ($validator->fails()) {
+
+                return $this->sendError($validator->errors());
+                
+            }
+            
             $user = new User;
             $user->name = $request->input('name');
             $user->email = $request->input('email');
