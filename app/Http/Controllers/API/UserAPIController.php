@@ -45,10 +45,15 @@ class UserAPIController extends Controller
     function login(Request $request)
     {
         try {
-            $this->validate($request, [
-                'email' => 'required|email',
-                'password' => 'required',
+            $validator = Validator::make($request->all(), [
+                'email'    => 'required|email',
+                'password' => 'required'
             ]);
+
+            if ($validator->fails()) {
+                return $this->sendError($validator->errors(), 409);
+            }
+
             if (auth()->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
                 // Authentication passed...
                 $user = auth()->user();
