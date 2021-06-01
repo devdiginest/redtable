@@ -71,7 +71,9 @@ class UserAPIController extends Controller
     function register(Request $request)
     {
         try {
-            $this->validate($request, [
+            
+
+            $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'email' => 'required|unique:users|email',
                 'phone' => 'required|unique:users|string',
@@ -100,7 +102,7 @@ class UserAPIController extends Controller
 
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return $this->sendError($e->getMessage(), 401);
+            return $this->sendError($validator->errors());
         }
 
 
