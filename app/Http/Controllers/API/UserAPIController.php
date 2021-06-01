@@ -1,8 +1,8 @@
 <?php
 /**
  * File name: UserAPIController.php
- * Last modified: 2020.06.11 at 12:09:19
- * Author: SmarterVision - https://codecanyon.net/user/smartervision
+ * Last modified: 2021.06.01 at 12:09:19
+ * Author: Diginest Solutions - https://diginestsolutions.com
  * Copyright (c) 2020
  */
 
@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
 use Prettus\Validator\Exceptions\ValidatorException;
+
+use Illuminate\Support\Facades\Validator;
 
 class UserAPIController extends Controller
 {
@@ -82,7 +84,7 @@ class UserAPIController extends Controller
                 return $this->sendError($validator->errors());
                 
             }
-            
+
             $user = new User;
             $user->name = $request->input('name');
             $user->email = $request->input('email');
