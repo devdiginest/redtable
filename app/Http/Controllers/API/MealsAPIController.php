@@ -58,6 +58,8 @@ class MealsAPIController extends Controller
 
         $url = url('/storage/app/public');
 
+        $fullArray = array();
+
         $foods = DB::table('meal_foods')
                         ->join('restaurant_foods','meal_foods.food_id','=','restaurant_foods.food_id')
                         ->join('foods','meal_foods.food_id','=','foods.id')
@@ -85,12 +87,10 @@ class MealsAPIController extends Controller
                         ->select('categories.id','categories.name')
                         ->distinct()->get();
 
-       
+       $fullArray['categories'] = $categories;
+       $fullArray['foods'] = $foods;
+       // $fullArray = $restaurants;
 
-        return response()->json([
-            'categories' => $categories,
-            'foods' => $foods,
-            'restaurant' => $restaurants
-        ]);
+        return $this->sendResponse($fullArray,'All data retrieved');
     }
 }
