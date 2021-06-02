@@ -37,21 +37,23 @@ class MealsAPIController extends Controller
     	$restaurants = DB::table('meal_foods')
     					->join('restaurant_foods','meal_foods.food_id','=','restaurant_foods.food_id')
     					->join('restaurants','restaurant_foods.restaurant_id','=','restaurants.id')
-    					->select('restaurant_foods.restaurant_id','restaurants.name','restaurants.address')
+    					->select('restaurant_foods.restaurant_id as id','restaurants.name','restaurants.address')
     					->where('meal_foods.meal_id','=',$mid)->distinct()->get();
     	foreach ($restaurants as $restaurant) {
-                $restaurant->ratings = RestaurantReview::where('restaurant_id', $restaurant->restaurant_id)->avg('rate');
-                $restaurant->ratingscount = RestaurantReview::where('restaurant_id', $restaurant->restaurant_id)->where('rate', '<>', '')->count();
+                $restaurant->rate = RestaurantReview::where('restaurant_id', $restaurant->id)->avg('rate');
+                $restaurant->ratingscount = RestaurantReview::where('restaurant_id', $restaurant->id)->where('rate', '<>', '')->count();
                 $restaurant->cuisines	= DB::table('restaurant_cuisines')
                 							->join('cuisines','restaurant_cuisines.cuisine_id','=','cuisines.id')
-                							->where('restaurant_cuisines.restaurant_id', $restaurant->restaurant_id)
+                							->where('restaurant_cuisines.restaurant_id', $restaurant->id)
                 							->select('cuisines.name')->get();
-                $media = DB::table('media')->where('model_id',$restaurant->restaurant_id)->where('model_type','=','App\Models\Restaurant')->select('id','file_name')->first();
+                $media = DB::table('media')->where('model_id',$restaurant->id)->where('model_type','=','App\Models\Restaurant')->select('id','file_name')->first();
                 
-                $restaurant->media_url = $url.'/'.$media->id.'/'.$media->file_name;
+                $restaurant->media[]['url'] = $url.'/'.$media->id.'/'.$media->file_name;
             }
 
-    	return response()->json($restaurants);
+    	// return response()->json($restaurants);
+
+        return $this->sendResponse($restaurants,'All data retrieved');
     }
 
     public function getfoods($mid,$rid){
