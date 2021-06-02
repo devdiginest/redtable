@@ -176,7 +176,31 @@ class RestaurantAPIController extends Controller
                     ->with('foods')
                     ->get();
                     
-        return response()->json($restaurant);
+        return $this->sendResponse($restaurant->toArray(),'Restaurant retrieved successfully');
+    }
+
+    /**
+     * Display Restaurant Best Offers in Food.
+     * GET|HEAD /restaurant_bestoffers/{rid}
+     *
+     * @param int $rid
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function get_offers($rid){
+        
+       $foods = Food::join('restaurant_foods','foods.id','=','restaurant_foods.food_id')
+        ->where('restaurant_foods.restaurant_id','=',$rid)->get();
+
+        foreach($foods as $food){
+            $diffAmount = $food->price - $food->discount_price;
+            $division = $diffAmount/$food->discount_price;
+            $percentage = $division * 100;
+            $food->discount_percentage = round($percentage);
+        }
+                    
+        return $this->sendResponse($foods->toArray(),'Restaurant Foods retrieved successfully');
     }
 
 
