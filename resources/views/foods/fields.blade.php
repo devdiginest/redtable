@@ -171,6 +171,17 @@
         </div>
     </div>
 
+    <!-- 'Boolean todays_special Field' -->
+    <div class="form-group row ">
+        {!! Form::label('todays_special', trans("lang.todays_special"),['class' => 'col-3 control-label text-right']) !!}
+        <div class="checkbox icheck">
+            <label class="col-9 ml-2 form-check-inline">
+                {!! Form::hidden('todays_special', 0) !!}
+                {!! Form::checkbox('todays_special', 1, null) !!}
+            </label>
+        </div>
+    </div>
+
     <!-- Restaurant Id Field -->
     {{-- <div class="form-group row ">
         {!! Form::label('restaurant_id', trans("lang.food_restaurant_id"),['class' => 'col-3 control-label text-right']) !!}

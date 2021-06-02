@@ -1215,4 +1215,5 @@ return [
     'restaurant_working_hours' => 'Working Hours',
     'restaurant_working_hours_placeholder' => 'Insert Working Hours',
     'restaurant_working_hours_help' => 'Insert Working Hours',
+    'todays_special' => 'Todays Special',
 ];

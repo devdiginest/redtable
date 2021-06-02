@@ -143,6 +143,23 @@ class RestaurantAPIController extends Controller
     }
 
     /**
+     * Display Restaurants Todays Special Foods.
+     * GET|HEAD /restaurant_specialfoods/{rid}
+     *
+     * @param int $rid
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function get_todays_special($rid){
+        
+        $foods = Food::join('restaurant_foods','foods.id','=','restaurant_foods.food_id')
+        ->where('restaurant_foods.restaurant_id','=',$rid)
+        ->where('foods.todays_special','=','1')->get();
+        return $this->sendResponse($foods->toArray(),'Restaurant todays special foods retrieved successfully');
+    }
+
+    /**
      * Display Restaurant Details.
      * GET|HEAD /restaurantdetails/{rid}
      *

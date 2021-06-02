@@ -70,6 +70,14 @@
   </div>
 </div>
 
+<!-- Todays Special Field -->
+<div class="form-group row col-6">
+  {!! Form::label('todays_special', 'Todays Special:', ['class' => 'col-3 control-label text-right']) !!}
+  <div class="col-9">
+    <p>{!! $food->todays_special !!}</p>
+  </div>
+</div>
+
 <!-- Restaurant Id Field -->
 <div class="form-group row col-6">
   {!! Form::label('restaurant_id', 'Restaurant Id:', ['class' => 'col-3 control-label text-right']) !!}
