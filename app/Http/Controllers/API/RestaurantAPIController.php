@@ -194,12 +194,15 @@ class RestaurantAPIController extends Controller
         ->where('restaurant_foods.restaurant_id','=',$rid)->get();
 
         foreach($foods as $food){
-            $diffAmount = $food->price - $food->discount_price;
-            if($diffAmount > 0) {
-                $division = $diffAmount/$food->discount_price;
-                $percentage = $division * 100;
-                $food->discount_percentage = round($percentage);
+            if($food->discount_price != NULL){
+                $diffAmount = $food->price - $food->discount_price;
+                if($diffAmount > 0) {
+                    $division = $diffAmount/$food->discount_price;
+                    $percentage = $division * 100;
+                    $food->discount_percentage = round($percentage);
+                }
             }
+            
             
         }
                     
