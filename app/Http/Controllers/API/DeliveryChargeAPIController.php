@@ -67,13 +67,20 @@ class DeliveryChargeAPIController extends Controller
     public function getarea($restaurantid){
         $deliveryAreas = DeliveryCharges::select('area_id')->where('restaurant_id',$restaurantid)->with('area')->get();
 
+        $newarray = array();
+
+        foreach ($deliveryAreas as $deliveryArea) {
+            $deliveryArea->label = $deliveryArea->area->name;
+            $deliveryArea->value = $deliveryArea->area->id;
+        }
+
         if($deliveryAreas->isEmpty()){
             return $this->sendError('not areas found');
         }
 
         // $deliveryAreas = $deliveryAreas->with('area');
 
-        return $this->sendResponse($deliveryAreas->toArray(), 'Delivery Areas retrieved successfully');
+        return $this->sendResponse($deliveryAreas, 'Delivery Areas retrieved successfully');
 
     }
 }
