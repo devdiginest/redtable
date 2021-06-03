@@ -48,6 +48,7 @@ class NewCartAPIController extends Controller
 
     		$cartDetail->itemTotalPrice = $cartDetail->food->price * $cartDetail->quantity;
     		$cartDetail->itemTotalDicountPrice = $cartDetail->food->discount_price * $cartDetail->quantity;
+            $cartDetail->food_id = $cartDetail->food->id;
 
     		$cartTotal[] = $cartDetail->itemTotalPrice;
     		$cartDisCountTotal[] = $cartDetail->itemTotalDicountPrice;

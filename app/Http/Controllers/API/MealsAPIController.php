@@ -74,6 +74,8 @@ class MealsAPIController extends Controller
                 
                 $food->media_url = $url.'/'.$media->id.'/'.$media->file_name;
 
+                $food->food_id = $food->id;
+
         }
 
         $restaurants = Restaurant::where('id',$rid)

@@ -119,6 +119,10 @@ class RestaurantAPIController extends Controller
         //         ->with('foods')->get();
         $foods = Food::join('restaurant_foods','foods.id','=','restaurant_foods.food_id')
         ->where('restaurant_foods.restaurant_id','=',$rid)->get();
+        foreach ($foods as $food {
+            // code...
+            $food->food_id = $food->id;
+        }
         return $this->sendResponse($foods->toArray(),'Restaurant foods retrieved successfully');
     }
 
