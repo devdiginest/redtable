@@ -21,6 +21,8 @@ use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Exceptions\RepositoryException;
 
+use Illuminate\Support\Facades\DB;
+
 /**
  * Class CategoryController
  * @package App\Http\Controllers\API
@@ -166,7 +168,21 @@ class CategoryAPIController extends Controller
 
     public function get_restaurants($cid){
         
-        $restaurants = RestaurantCategory::where('category_id',$cid)->with('restaurant')->get();
+        // $restaurants = RestaurantCategory::where('category_id',$cid)->with('restaurant')->get();
+
+        $url = url('/storage/app/public');
+
+        $restaurants =DB::table('restaurant_categories')
+                        ->join('restaurants','restaurant_categories.restaurant_id','=','restaurants.id')
+                        ->where('restaurant_categories.category_id',$cid)->get();
+        foreach ($restaurants as $restaurant) {
+            // code...
+            $media = DB::table('media')->where('model_id',$restaurant->id)->where('model_type','=','App\Models\Restaurant')->select('id','file_name')->first();
+                
+                $restaurant->media[]['url'] = $url.'/'.$media->id.'/'.$media->file_name;
+        }
+
+        
 
         if ($restaurants->isEmpty()) {
             return $this->sendError('No restaurants found');
