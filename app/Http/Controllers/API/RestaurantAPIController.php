@@ -179,6 +179,9 @@ class RestaurantAPIController extends Controller
                     ->with('restaurantReviews')
                     ->with('foods')
                     ->get();
+        foreach ($restaurant[0]->foods as $rest) {
+            $rest->food_id = $rest->id;
+        }
                     
         return $this->sendResponse($restaurant[0],'Restaurant retrieved successfully');
     }
