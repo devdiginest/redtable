@@ -67,6 +67,10 @@ class NewCartAPIController extends Controller
 
     	$delAddress = DeliveryCharges::where('area_id',$area_id)->where('restaurant_id',$restaurant_id)->first();
 
+        if($delAddress == null){
+            return $this->sendError('No delivery to this addresss. Please check another address');
+        }
+
     	// return response()->json($delAddress->free_delivery_amount);
 
     	if($disTotal > $delAddress->free_delivery_amount){
