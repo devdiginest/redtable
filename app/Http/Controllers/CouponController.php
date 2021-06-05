@@ -17,6 +17,7 @@ use App\Repositories\DiscountableRepository;
 use App\Repositories\FoodRepository;
 use App\Repositories\RestaurantRepository;
 use App\Repositories\CategoryRepository;
+use App\Repositories\UploadRepository;
 use Flash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -49,10 +50,14 @@ class CouponController extends Controller
      * @var DiscountableRepository
      */
     private $discountableRepository;
+    /**
+     * @var UploadRepository
+     */
+    private $uploadRepository;
 
     public function __construct(CouponRepository $couponRepo, CustomFieldRepository $customFieldRepo, FoodRepository $foodRepo
         , RestaurantRepository $restaurantRepo
-        , CategoryRepository $categoryRepo , DiscountableRepository $discountableRepository)
+        , CategoryRepository $categoryRepo , DiscountableRepository $discountableRepository, UploadRepository $uploadRepo)
     {
         parent::__construct();
         $this->couponRepository = $couponRepo;
@@ -61,6 +66,7 @@ class CouponController extends Controller
         $this->restaurantRepository = $restaurantRepo;
         $this->categoryRepository = $categoryRepo;
         $this->discountableRepository = $discountableRepository;
+        $this->uploadRepository = $uploadRepo;
     }
 
     /**
@@ -100,6 +106,7 @@ class CouponController extends Controller
             $customFields = $this->customFieldRepository->findByField('custom_field_model', $this->couponRepository->model());
             $html = generateCustomField($customFields);
         }
+
         return view('coupons.create')->with("customFields", isset($html) ? $html : false)->with("food", $food)->with("restaurant", $restaurant)->with("category", $category)->with("foodsSelected", $foodsSelected)->with("restaurantsSelected", $restaurantsSelected)->with("categoriesSelected", $categoriesSelected);
     }
 
@@ -131,6 +138,11 @@ class CouponController extends Controller
                 foreach ($input['categories'] as $categoryId){
                     $discountables[] = ["discountable_type"=>"App\Models\Category","discountable_id"=>$categoryId];
                 }
+            }
+            if (isset($input['image']) && $input['image']) {
+                $cacheUpload = $this->uploadRepository->getByUuid($input['image']);
+                $mediaItem = $cacheUpload->getMedia('image')->first();
+                $mediaItem->copy($coupon, 'image');
             }
             $coupon->discountables()->createMany($discountables);
             $coupon->customFieldsValues()->createMany(getCustomFieldsValues($customFields, $request));
@@ -244,6 +256,11 @@ class CouponController extends Controller
                 foreach ($input['categories'] as $categoryId){
                     $discountables[] = ["discountable_type"=>"App\Models\Category","discountable_id"=>$categoryId];
                 }
+            }
+            if (isset($input['image']) && $input['image']) {
+                $cacheUpload = $this->uploadRepository->getByUuid($input['image']);
+                $mediaItem = $cacheUpload->getMedia('image')->first();
+                $mediaItem->copy($coupon, 'image');
             }
             $coupon->discountables()->delete();
             $coupon->discountables()->createMany($discountables);

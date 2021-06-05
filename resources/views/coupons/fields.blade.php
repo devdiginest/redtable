@@ -37,6 +37,64 @@
   </div>
 </div>
 
+<!-- Image Field -->
+<div class="form-group row">
+  {!! Form::label('image', trans("lang.category_image"), ['class' => 'col-3 control-label text-right']) !!}
+  <div class="col-9">
+    <div style="width: 100%" class="dropzone image" id="image" data-field="image">
+      <input type="hidden" name="image">
+    </div>
+    <a href="#loadMediaModal" data-dropzone="image" data-toggle="modal" data-target="#mediaModal" class="btn btn-outline-{{setting('theme_color','primary')}} btn-sm float-right mt-1">{{ trans('lang.media_select')}}</a>
+    <div class="form-text text-muted w-50">
+      {{ trans("lang.category_image_help") }}
+    </div>
+  </div>
+</div>
+@prepend('scripts')
+<script type="text/javascript">
+    var var15866134771240834480ble = '';
+    @if(isset($coupon) && $coupon->hasMedia('image'))
+    var15866134771240834480ble = {
+        name: "{!! $coupon->getFirstMedia('image')->name !!}",
+        size: "{!! $coupon->getFirstMedia('image')->size !!}",
+        type: "{!! $coupon->getFirstMedia('image')->mime_type !!}",
+        collection_name: "{!! $coupon->getFirstMedia('image')->collection_name !!}"};
+    @endif
+    var dz_var15866134771240834480ble = $(".dropzone.image").dropzone({
+        url: "{!!url('uploads/store')!!}",
+        addRemoveLinks: true,
+        maxFiles: 1,
+        init: function () {
+        @if(isset($coupon) && $coupon->hasMedia('image'))
+            dzInit(this,var15866134771240834480ble,'{!! url($coupon->getFirstMediaUrl('image','thumb')) !!}')
+        @endif
+        },
+        accept: function(file, done) {
+            dzAccept(file,done,this.element,"{!!config('medialibrary.icons_folder')!!}");
+        },
+        sending: function (file, xhr, formData) {
+            dzSending(this,file,formData,'{!! csrf_token() !!}');
+        },
+        maxfilesexceeded: function (file) {
+            dz_var15866134771240834480ble[0].mockFile = '';
+            dzMaxfile(this,file);
+        },
+        complete: function (file) {
+            dzComplete(this, file, var15866134771240834480ble, dz_var15866134771240834480ble[0].mockFile);
+            dz_var15866134771240834480ble[0].mockFile = file;
+        },
+        removedfile: function (file) {
+            dzRemoveFile(
+                file, var15866134771240834480ble, '{!! url("coupon/remove-media") !!}',
+                'image', '{!! isset($coupon) ? $coupon->id : 0 !!}', '{!! url("uplaods/clear") !!}', '{!! csrf_token() !!}'
+            );
+        }
+    });
+    dz_var15866134771240834480ble[0].mockFile = var15866134771240834480ble;
+    dropzoneFields['image'] = dz_var15866134771240834480ble;
+</script>
+@endprepend
+
 
 
 <!-- Description Field -->

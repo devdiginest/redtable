@@ -159,5 +159,5 @@ Route::middleware('auth:api')->group(function () {
         'show'
     ]);
 
-    Route::post('applycoupon', 'API\CouponController@apply_coupon');
+    Route::post('applycoupon', 'API\CouponAPIController@apply_coupon');
 });

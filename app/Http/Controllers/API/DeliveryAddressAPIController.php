@@ -54,8 +54,6 @@ class DeliveryAddressAPIController extends Controller
 
         }
 
-        // $deliveryAddresses->restaurants = $restaurants;
-
         return $this->sendResponse($deliveryAddresses->toArray(), 'Delivery Addresses retrieved successfully');
     }
 

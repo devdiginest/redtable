@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Response;
 use Prettus\Repository\Exceptions\RepositoryException;
 use Flash;
 
+use Illuminate\Support\Facades\Validator;
+
+use App\Models\DeliveryCharges;
+use App\Models\Restaurant;
+
 /**
  * Class CouponController
  * @package App\Http\Controllers\API
@@ -89,26 +94,58 @@ class CouponAPIController extends Controller
                 ], 409);
             }
         try {
-                
-                    $currentTs  = Carbon::now()->toDateString();
+                $restaurantId   = $request->input('restaurant_id');
+                $areaId         = $request->input('area_id');
+                $itemTotal      = $request->input('item_total');
+                $couponCode     = $request->input('coupon_code');
 
-                    $courseReview                   = new CourseReview;
-                    $courseReview->student          = $request->input('student');
-                    $courseReview->course           = $request->input('course');
-                    $courseReview->rating           = $request->input('rating');
-                    $courseReview->review           = $request->input('review');
-                    $courseReview->date             = $currentTs;
-                    $courseReview->save();
+                $deliveryCharge = DeliveryCharges::where('restaurant_id',$restaurantId)
+                                    ->where('area_id',$areaId)->first();
+                $couponDetails  = Coupon::where('code',$couponCode)->first();
+                $discountType    = $couponDetails->discount_type;
+                $discountValue   = $couponDetails->discount;
 
-                    return response()->json([
-                        'status'  => true,
-                        'message' => 'Successfully added review'
-                    ], 201);
+                $restaurantTax = Restaurant::where('id',$restaurantId)->select('default_tax')->first();
+
+               if($discountType == 'percent'){
+                    $discountRate = $itemTotal * $discountValue;
+                    $discountRate = $discountRate/100;
+               }
+               elseif ($discountType == 'fixed') {
+                   // code...
+                    $minusRate = $itemTotal - $discountValue;
+               }
+
+               $minusRate = $itemTotal - $discountRate;
+
+                if($minusRate > $deliveryCharge->free_delivery_amount){
+                    $deliveryFee = 0;
+                }
+                if($minusRate < $deliveryCharge->free_delivery_amount){
+                    $deliveryFee = $deliveryCharge->delivery_charge;
+                }
+
+                $Bill = $minusRate + $deliveryFee;
+
+                $taxRate = $Bill * $restaurantTax->default_tax;
+                $taxRate = $taxRate/100;
+
+                $totalBill = $Bill + $taxRate;
+
+
+
+                return $this->sendResponse(
+                    [
+                    'cartTotal'     => $itemTotal,
+                    'cartDiscount'  => $discountRate,
+                    'deliveryFee'   => $deliveryFee,
+                    'totalBill'     => $totalBill,
+                ], 'Cart Updated successfully');
 
                 } catch (\Exception $e) {
                     return response()->json([
                         'status'  => false,
-                        'message' => 'Review adding failed'
+                        'message' => 'Failed to update cart'
                     ], 409);
                 }
     }

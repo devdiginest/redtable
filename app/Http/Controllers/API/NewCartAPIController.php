@@ -52,6 +52,8 @@ class NewCartAPIController extends Controller
 
     		$cartTotal[] = $cartDetail->itemTotalPrice;
     		$cartDisCountTotal[] = $cartDetail->itemTotalDicountPrice;
+
+            $restTax = $cartDetail->restaurant->default_tax;
     	}
 
 
@@ -80,8 +82,13 @@ class NewCartAPIController extends Controller
     		$deliveryFee = $delAddress->delivery_charge;
     	}
 
-    	$totalBill = $disTotal + $deliveryFee;
-    	
+    	$Bill = $disTotal + $deliveryFee;
+
+        $taxRate = $Bill * $restTax;
+        $taxRate = $taxRate/100;
+
+        $totalBill = $Bill + $taxRate;
+        
 
     	
         return $this->sendResponse(

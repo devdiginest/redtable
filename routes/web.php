@@ -105,6 +105,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/stocks/getfood/{id}','StockController@getFood');
 
     Route::post('categories/remove-media', 'CategoryController@removeMedia');
+    Route::post('coupon/remove-media', 'CouponController@removeMedia');
     Route::resource('categories', 'CategoryController')->except([
         'show'
     ]);
