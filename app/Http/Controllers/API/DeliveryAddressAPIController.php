@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\DeliveryAddress;
+use App\Models\DeliveryCharges;
 use App\Repositories\DeliveryAddressRepository;
 use Flash;
 use Illuminate\Http\Request;
@@ -45,6 +46,15 @@ class DeliveryAddressAPIController extends Controller
             return $this->sendError($e->getMessage());
         }
         $deliveryAddresses = $this->deliveryAddressRepository->all();
+
+        $restaurants = array();
+
+        foreach($deliveryAddresses as $deliveryAddress){
+            $deliveryAddress->restaurants = DeliveryCharges::where('area_id',$deliveryAddress->area_id)->pluck('restaurant_id');
+
+        }
+
+        // $deliveryAddresses->restaurants = $restaurants;
 
         return $this->sendResponse($deliveryAddresses->toArray(), 'Delivery Addresses retrieved successfully');
     }
