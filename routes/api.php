@@ -158,4 +158,6 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('coupons', 'API\CouponAPIController')->except([
         'show'
     ]);
+
+    Route::post('applycoupon', 'API\CouponController@apply_coupon');
 });

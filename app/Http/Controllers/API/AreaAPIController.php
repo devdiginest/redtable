@@ -41,6 +41,12 @@ class AreaAPIController extends Controller
         }
         $areaList = $this->areaRepository->all();
 
+        foreach ($areaList as $area) {
+            // code..
+            $area->label = $area->name;
+            $area->value = $area->id;
+        }
+
         return $this->sendResponse($areaList->toArray(), 'Area list retrieved successfully');
     }
 }

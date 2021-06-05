@@ -71,4 +71,45 @@ class CouponAPIController extends Controller
 
         return $this->sendResponse($coupon->toArray(), 'Coupon retrieved successfully');
     }
+
+    public function apply_coupon(Request $request){
+
+        $validator = Validator::make($request->all(), [
+                'restaurant_id'    => 'required|int|exists:restaurants,id',
+                'area_id'          => 'required|int|exists:areas,id',
+                'item_total'       => 'required|int',
+                'coupon_code'      => 'required|string|exists:coupons,code'
+            ]);
+
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status'  => false,
+                    'message' => $validator->errors()
+                ], 409);
+            }
+        try {
+                
+                    $currentTs  = Carbon::now()->toDateString();
+
+                    $courseReview                   = new CourseReview;
+                    $courseReview->student          = $request->input('student');
+                    $courseReview->course           = $request->input('course');
+                    $courseReview->rating           = $request->input('rating');
+                    $courseReview->review           = $request->input('review');
+                    $courseReview->date             = $currentTs;
+                    $courseReview->save();
+
+                    return response()->json([
+                        'status'  => true,
+                        'message' => 'Successfully added review'
+                    ], 201);
+
+                } catch (\Exception $e) {
+                    return response()->json([
+                        'status'  => false,
+                        'message' => 'Review adding failed'
+                    ], 409);
+                }
+    }
 }

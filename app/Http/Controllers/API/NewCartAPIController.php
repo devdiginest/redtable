@@ -43,7 +43,7 @@ class NewCartAPIController extends Controller
 
     	foreach ($cartDetails as $cartDetail) {
     		# code...
-    		$deliveryAddress = DeliveryAddress::where('user_id',$user_id)->first();
+    		$deliveryAddress = DeliveryAddress::where('user_id',$user_id)->where('is_default',1)->first();
     		$cartDetail->deliveryAddress = $deliveryAddress;
 
     		$cartDetail->itemTotalPrice = $cartDetail->food->price * $cartDetail->quantity;
