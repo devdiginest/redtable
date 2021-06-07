@@ -1,9 +1,9 @@
 <?php
 /**
  * File name: RestaurantReviewsOfUserCriteria.php
- * Last modified: 2020.05.04 at 09:04:18
- * Author: SmarterVision - https://codecanyon.net/user/smartervision
- * Copyright (c) 2020
+ * Last modified: 2021.05.04 at 09:04:18
+ * Author: Diginest Solutions - https://diginestsolutions.com
+ * Copyright (c) 2021
  *
  */
 

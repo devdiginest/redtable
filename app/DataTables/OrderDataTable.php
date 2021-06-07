@@ -50,10 +50,7 @@ class OrderDataTable extends DataTable
             ->editColumn('payment.status', function ($order) {
                 return getPayment($order->payment,'status');
             })
-            ->editColumn('delivery_address.address', function ($order) {
-                $delivery_address = DeliveryAddress::where('id', $order->delivery_address_id)->first()->address;
-                return $delivery_address;
-            })
+            
             ->editColumn('active', function ($food) {
                 return getBooleanColumn($food, 'active');
             })
@@ -109,12 +106,6 @@ class OrderDataTable extends DataTable
             [
                 'data' => 'active',
                 'title' => trans('lang.order_active'),
-
-            ],
-            [
-                'data' => 'delivery_address.address',
-                'name' => 'delivery_address.address',
-                'title' => trans('lang.delivery_address'),
 
             ],
             [

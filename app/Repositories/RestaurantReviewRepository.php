@@ -23,7 +23,8 @@ class RestaurantReviewRepository extends BaseRepository
         'review',
         'rate',
         'user_id',
-        'restaurant_id'
+        'restaurant_id',
+        'reply'
     ];
 
     /**

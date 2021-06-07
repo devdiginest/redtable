@@ -44,6 +44,16 @@
   </div>
 </div>
 
+<!-- Reply Field -->
+<div class="form-group row ">
+  {!! Form::label('reply', trans("lang.restaurant_review_reply"), ['class' => 'col-3 control-label text-right']) !!}
+  <div class="col-9">
+    {!! Form::textarea('reply', null, ['class' => 'form-control','placeholder'=>
+     trans("lang.restaurant_review_reply_help") ]) !!}
+    <div class="form-text text-muted">{{ trans("lang.restaurant_review_reply_help") }}</div>
+  </div>
+</div>
+
 </div>
 @if($customFields)
 <div class="clearfix"></div>

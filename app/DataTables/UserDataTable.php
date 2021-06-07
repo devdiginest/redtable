@@ -54,9 +54,7 @@ class UserDataTable extends DataTable
      */
     public function query(User $model)
     {
-        return $model->newQuery()->with('roles')->whereHas('roles', function($q) {
-            $q->where('name', '!=', 'client');
-        });
+        return $model->newQuery()->with('roles');
     }
 
     /**

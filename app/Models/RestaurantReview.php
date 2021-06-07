@@ -26,6 +26,7 @@ class RestaurantReview extends Model
     public $fillable = [
         'review',
         'rate',
+        'reply',
         'user_id',
         'restaurant_id'
     ];
@@ -39,6 +40,7 @@ class RestaurantReview extends Model
         'review' => 'string',
         'user_id' => 'integer',
         'restaurant_id' => 'integer',
+        'reply' => 'string',
     ];
 
     /**

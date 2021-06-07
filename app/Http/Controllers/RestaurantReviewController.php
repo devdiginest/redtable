@@ -1,9 +1,9 @@
 <?php
 /**
  * File name: RestaurantReviewController.php
- * Last modified: 2020.05.04 at 09:04:19
- * Author: SmarterVision - https://codecanyon.net/user/smartervision
- * Copyright (c) 2020
+ * Last modified: 2021.05.04 at 09:04:19
+ * Author: Diginest Solutions - https://diginestsolutions.com
+ * Copyright (c) 2021
  *
  */
 
@@ -22,7 +22,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use Prettus\Validator\Exceptions\ValidatorException;
-
+use App\Models\RestaurantReview;
 class RestaurantReviewController extends Controller
 {
     /** @var  RestaurantReviewRepository */
@@ -169,17 +169,14 @@ class RestaurantReviewController extends Controller
     {
         $this->restaurantReviewRepository->pushCriteria(new RestaurantReviewsOfUserCriteria(auth()->id()));
         $restaurantReview = $this->restaurantReviewRepository->findWithoutFail($id);
-
         if (empty($restaurantReview)) {
             Flash::error('Restaurant Review not found');
             return redirect(route('restaurantReviews.index'));
         }
-        $input = $request->all();
+        $input = $request->except(['_method','_token']);
         $customFields = $this->customFieldRepository->findByField('custom_field_model', $this->restaurantReviewRepository->model());
         try {
             $restaurantReview = $this->restaurantReviewRepository->update($input, $id);
-
-
             foreach (getCustomFieldsValues($customFields, $request) as $value) {
                 $restaurantReview->customFieldsValues()
                     ->updateOrCreate(['custom_field_id' => $value['custom_field_id']], $value);
