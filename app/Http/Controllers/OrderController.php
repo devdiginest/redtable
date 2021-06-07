@@ -218,6 +218,8 @@ class OrderController extends Controller
 
             $order = $this->orderRepository->update($input, $id);
 
+            // return($order);
+
             if (setting('enable_notifications', false)) {
                 if (isset($input['order_status_id']) && $input['order_status_id'] != $oldOrder->order_status_id) {
                     Notification::send([$order->user], new StatusChangedOrder($order));
