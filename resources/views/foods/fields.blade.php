@@ -107,17 +107,17 @@
 <div style="flex: 50%;max-width: 50%;padding: 0 4px;" class="column">
 
     <!-- Ingredients Field -->
-    <div class="form-group row ">
+    <!-- <div class="form-group row ">
         {!! Form::label('ingredients', trans("lang.food_ingredients"), ['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
             {!! Form::textarea('ingredients', null, ['class' => 'form-control','placeholder'=>
              trans("lang.food_ingredients_placeholder")  ]) !!}
             <div class="form-text text-muted">{{ trans("lang.food_ingredients_help") }}</div>
         </div>
-    </div>
+    </div> -->
 
     <!-- unit Field -->
-    <div class="form-group row ">
+    <!-- <div class="form-group row ">
         {!! Form::label('unit', trans("lang.food_unit"), ['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
             {!! Form::text('unit', null,  ['class' => 'form-control','placeholder'=>  trans("lang.food_unit_placeholder")]) !!}
@@ -125,10 +125,10 @@
                 {{ trans("lang.food_unit_help") }}
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- package_items_count Field -->
-    <div class="form-group row ">
+    <!-- <div class="form-group row ">
         {!! Form::label('package_items_count', trans("lang.food_package_items_count"), ['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
             {!! Form::number('package_items_count', null,  ['class' => 'form-control','placeholder'=>  trans("lang.food_package_items_count_placeholder"),'step'=>"any", 'min'=>"0"]) !!}
@@ -136,10 +136,10 @@
                 {{ trans("lang.food_package_items_count_help") }}
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Weight Field -->
-    <div class="form-group row ">
+    <!-- <div class="form-group row ">
         {!! Form::label('weight', trans("lang.food_weight"), ['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
             {!! Form::number('weight', null,  ['class' => 'form-control','placeholder'=>  trans("lang.food_weight_placeholder"),'step'=>"0.01", 'min'=>"0"]) !!}
@@ -147,7 +147,7 @@
                 {{ trans("lang.food_weight_help") }}
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- 'Boolean Featured Field' -->
     <div class="form-group row ">

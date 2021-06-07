@@ -13,13 +13,13 @@
         </div>
     </div>
     <!-- cuisines Field -->
-    <div class="form-group row ">
+    <!-- <div class="form-group row ">
         {!! Form::label('cuisines[]', trans("lang.restaurant_cuisines"),['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
             {!! Form::select('cuisines[]', $cuisine, $cuisinesSelected, ['class' => 'select2 form-control' , 'multiple'=>'multiple']) !!}
             <div class="form-text text-muted">{{ trans("lang.restaurant_cuisines_help") }}</div>
         </div>
-    </div>
+    </div> -->
     <!-- Categories Field -->
     <div class="form-group row ">
         {!! Form::label('categories[]', trans("lang.restaurant_menucategory"),['class' => 'col-3 control-label text-right']) !!}
@@ -48,7 +48,7 @@
         </div>
     </div>
     <!-- delivery_fee Field -->
-    <div class="form-group row ">
+    <!-- <div class="form-group row ">
         {!! Form::label('delivery_fee', trans("lang.restaurant_delivery_fee"), ['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
             {!! Form::number('delivery_fee', null,  ['class' => 'form-control','step'=>'any','placeholder'=>  trans("lang.restaurant_delivery_fee_placeholder")]) !!}
@@ -56,10 +56,10 @@
                 {{ trans("lang.restaurant_delivery_fee_help") }}
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- delivery_range Field -->
-    <div class="form-group row ">
+    <!-- <div class="form-group row ">
         {!! Form::label('delivery_range', trans("lang.restaurant_delivery_range"), ['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
             {!! Form::number('delivery_range', null,  ['class' => 'form-control', 'step'=>'any','placeholder'=>  trans("lang.restaurant_delivery_range_placeholder")]) !!}
@@ -67,7 +67,7 @@
                 {{ trans("lang.restaurant_delivery_range_help") }}
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- default_tax Field -->
     <div class="form-group row ">

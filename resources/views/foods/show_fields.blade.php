@@ -47,20 +47,20 @@
 </div>
 
 <!-- Ingredients Field -->
-<div class="form-group row col-6">
+<!-- <div class="form-group row col-6">
   {!! Form::label('ingredients', 'Ingredients:', ['class' => 'col-3 control-label text-right']) !!}
   <div class="col-9">
     <p>{!! $food->ingredients !!}</p>
   </div>
-</div>
+</div> -->
 
 <!-- Weight Field -->
-<div class="form-group row col-6">
+<!-- <div class="form-group row col-6">
   {!! Form::label('weight', 'Weight:', ['class' => 'col-3 control-label text-right']) !!}
   <div class="col-9">
     <p>{!! $food->weight !!}</p>
   </div>
-</div>
+</div> -->
 
 <!-- Featured Field -->
 <div class="form-group row col-6">
