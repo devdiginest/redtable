@@ -87,8 +87,8 @@ class NewCartAPIController extends Controller
         $taxRate = $disTotal * $restTax;
         $taxRate = $taxRate/100;
 
-        $totalBill = $disTotal + $taxRate + $deliveryFee;
-        // $totalBill = $disTotal + $taxRate;
+        // $totalBill = $disTotal + $taxRate + $deliveryFee;
+        $totalBill = $disTotal + $taxRate;
         
 
     	
