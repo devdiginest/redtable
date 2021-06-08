@@ -151,6 +151,7 @@ class DeliveryAddressAPIController extends Controller
 
     }
 
+
     public function create(Request $request){
         $validator = Validator::make($request->all(), [
                 'description'       => 'required|string|max:100',
@@ -182,7 +183,11 @@ class DeliveryAddressAPIController extends Controller
                     $deliveryAddress->area_id       = $area_id;
                     $deliveryAddress->save();
 
-                    $getAddresses = DeliveryAddress::where('user_id',$user_id)->whereNotIn('id',[$deliveryAddress->id])->update(['is_default' => 0]);
+
+                    if($default != 1){
+                        $getAddresses = DeliveryAddress::where('user_id',$user_id)->whereNotIn('id',[$deliveryAddress->id])->update(['is_default' => 0]);
+                    }
+                    
 
                     return $this->sendResponse($deliveryAddress,'Successfully added new address');
                 
@@ -225,8 +230,9 @@ class DeliveryAddressAPIController extends Controller
                     $deliveryAddress->area_id       = $area_id;
                     $deliveryAddress->save();
 
-                    $getAddresses = DeliveryAddress::where('user_id',$user_id)->whereNotIn('id',[$id])->update(['is_default' => 0]);
-                    
+                    if($default != 1){
+                        $getAddresses = DeliveryAddress::where('user_id',$user_id)->whereNotIn('id',[$id])->update(['is_default' => 0]);
+                    }
 
                     return $this->sendResponse($deliveryAddress,'Address edited successfully');
                 

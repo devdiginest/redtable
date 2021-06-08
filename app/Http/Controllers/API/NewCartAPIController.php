@@ -82,12 +82,12 @@ class NewCartAPIController extends Controller
     		$deliveryFee = $delAddress->delivery_charge;
     	}
 
-    	$Bill = $disTotal + $deliveryFee;
+    	// $Bill = $disTotal + $deliveryFee;
 
-        $taxRate = $Bill * $restTax;
+        $taxRate = $disTotal * $restTax;
         $taxRate = $taxRate/100;
 
-        $totalBill = $Bill + $taxRate;
+        $totalBill = $disTotal + $taxRate + $deliveryFee;
         
 
     	

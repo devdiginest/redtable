@@ -125,12 +125,12 @@ class CouponAPIController extends Controller
                     $deliveryFee = $deliveryCharge->delivery_charge;
                 }
 
-                $Bill = $minusRate + $deliveryFee;
+                // $Bill = $minusRate + $deliveryFee;
 
-                $taxRate = $Bill * $restaurantTax->default_tax;
+                $taxRate = $minusRate * $restaurantTax->default_tax;
                 $taxRate = $taxRate/100;
 
-                $totalBill = $Bill + $taxRate;
+                $totalBill = $minusRate + $taxRate + $deliveryFee;
 
 
 
