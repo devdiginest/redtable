@@ -130,9 +130,9 @@ class CouponAPIController extends Controller
                 $taxRate = $minusRate * $restaurantTax->default_tax;
                 $taxRate = $taxRate/100;
 
-                $totalBill = $minusRate + $taxRate + $deliveryFee;
+                // $totalBill = $minusRate + $taxRate + $deliveryFee;
 
-
+                $totalBill = $minusRate + $taxRate;
 
                 return $this->sendResponse(
                     [
