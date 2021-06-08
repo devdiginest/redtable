@@ -88,16 +88,17 @@ class NewCartAPIController extends Controller
         $taxRate = $taxRate/100;
 
         $totalBill = $disTotal + $taxRate + $deliveryFee;
+        // $totalBill = $disTotal + $taxRate;
         
 
     	
         return $this->sendResponse(
             [
-            'cartDetails' => $cartDetails,
-            'cartTotal'   => $total,
-            'cartDiscount'   => $discount,
+            'cartDetails'   => $cartDetails,
+            'cartTotal'     => $total,
+            'cartDiscount'  => $discount,
             'deliveryFee'   => $deliveryFee,
-            'totalBill' => $totalBill,
+            'totalBill'     => $totalBill,
         ], 'Cart details retrieved successfully');
     }
 
