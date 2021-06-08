@@ -32,6 +32,9 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Response;
 use Prettus\Validator\Exceptions\ValidatorException;
 
+use App\Models\FoodOrder;
+use App\Stock;
+
 class OrderController extends Controller
 {
     /** @var  OrderRepository */
@@ -216,9 +219,28 @@ class OrderController extends Controller
         $customFields = $this->customFieldRepository->findByField('custom_field_model', $this->orderRepository->model());
         try {
 
+            // return($input);
+
             $order = $this->orderRepository->update($input, $id);
 
-            // return($order);
+            if($input['order_status_id'] == 2){
+
+                $restaurant_id = $order->restaurant_id;
+
+                $food_id    =   FoodOrder::where('order_id',$order->id)->select('order_id','food_id','restaurant_id','quantity')->get();
+
+                foreach ($food_id as $foods) {
+                    // code...
+                    $stockQty = Stock::where('food_id',$foods->food_id)->where('restaurant_id',$foods->restaurant_id)->select('quantity')->first();
+
+                    $updateQty = $stockQty->quantity - $foods->quantity;
+
+                    $updateStock = Stock::where('food_id',$foods->food_id)->where('restaurant_id',$foods->restaurant_id)->update(['quantity' => $updateQty]);
+                     
+                }
+            }
+
+            
 
             if (setting('enable_notifications', false)) {
                 if (isset($input['order_status_id']) && $input['order_status_id'] != $oldOrder->order_status_id) {

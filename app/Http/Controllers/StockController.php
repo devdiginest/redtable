@@ -75,6 +75,7 @@ class StockController extends Controller
     {
         //
         $food = $this->foodRepository->pluck('name', 'id');
+
         if (auth()->user()->hasRole('admin')) {
             $restaurant = $this->restaurantRepository->pluck('name', 'id');
         } else {
@@ -165,7 +166,7 @@ class StockController extends Controller
         return redirect('/stocks');
     }
 
-    public function getFood($id)
+    public function getfood($id)
     {
        $stocks = DB::table('restaurant_foods')
                 ->select('restaurant_foods.food_id','foods.name')

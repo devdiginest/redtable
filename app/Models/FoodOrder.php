@@ -35,7 +35,8 @@ class FoodOrder extends Model
         'price',
         'quantity',
         'food_id',
-        'order_id'
+        'order_id',
+        'restaurant_id'
     ];
 
     /**
@@ -47,7 +48,8 @@ class FoodOrder extends Model
         'price' => 'double',
         'quantity' => 'integer',
         'food_id' => 'integer',
-        'order_id' => 'integer'
+        'order_id' => 'integer',
+        'restaurant_id' => 'integer',
     ];
 
     /**

@@ -102,7 +102,7 @@
 
                     if (len>0) {
                         for (var i = 0; i<len; i++) {
-                             var id = response.data[i].id;
+                             var id = response.data[i].food_id;
                              var name = response.data[i].name;
 
                              var option = "<option value='"+id+"'>"+name+"</option>"; 
