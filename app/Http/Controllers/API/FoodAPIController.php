@@ -77,6 +77,12 @@ class FoodAPIController extends Controller
 //            $this->foodRepository->orderBy('area');
             $foods = $this->foodRepository->all();
 
+            foreach ($foods as $food) {
+
+                $food->description = strip_tags($food->description);
+                $food->ingredients = strip_tags($food->ingredients);
+            }
+
         } catch (RepositoryException $e) {
             return $this->sendError($e->getMessage());
         }

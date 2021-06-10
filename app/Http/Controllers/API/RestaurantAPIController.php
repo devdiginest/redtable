@@ -162,7 +162,6 @@ class RestaurantAPIController extends Controller
         ->where('foods.todays_special','=','1')->get();
 
         foreach ($foods as $food) {
-            // code...
 
             $food->description = strip_tags($food->description);
             $food->ingredients = strip_tags($food->ingredients);
