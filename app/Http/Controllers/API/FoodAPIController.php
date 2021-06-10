@@ -111,6 +111,12 @@ class FoodAPIController extends Controller
             return $this->sendError($e->getMessage());
         }
 
+        foreach ($foods as $food) {
+
+                $food->description = strip_tags($food->description);
+                $food->ingredients = strip_tags($food->ingredients);
+            }
+
         return $this->sendResponse($foods->toArray(), 'Foods retrieved successfully');
     }
 
@@ -145,6 +151,12 @@ class FoodAPIController extends Controller
             return $this->sendError('Food not found');
         }
 
+        foreach ($food as $foo) {
+            // code...
+            $foo->description = strip_tags($foo->description);
+            $foo->ingredients = strip_tags($foo->ingredients);
+        }
+
         return $this->sendResponse($food->toArray(), 'Food retrieved successfully');
     }
 
@@ -176,6 +188,12 @@ class FoodAPIController extends Controller
 
         if (empty($food)) {
             return $this->sendError('Food not found');
+        }
+
+        foreach ($food as $foo) {
+            // code...
+            $foo->description = strip_tags($foo->description);
+            $foo->ingredients = strip_tags($foo->ingredients);
         }
 
         return $this->sendResponse($food->toArray(), 'Food retrieved successfully');

@@ -56,6 +56,12 @@ class CategoryAPIController extends Controller
         }
         $categories = $this->categoryRepository->all();
 
+        foreach ($categories as $category) {
+            // code...
+
+            $category->description = strip_tags($category->description);
+        }
+
         return $this->sendResponse($categories->toArray(), 'Categories retrieved successfully');
     }
 
@@ -76,6 +82,12 @@ class CategoryAPIController extends Controller
 
         if (empty($category)) {
             return $this->sendError('Category not found');
+        }
+
+        foreach ($category as $cat) {
+            // code...
+
+            $cat->description = strip_tags($cat->description);
         }
 
         return $this->sendResponse($category->toArray(), 'Category retrieved successfully');

@@ -80,6 +80,12 @@ class RestaurantAPIController extends Controller
             $this->restaurantRepository->pushCriteria(new ActiveCriteria());
             $restaurants = $this->restaurantRepository->all();
 
+            foreach ($restaurants as $restaurant) {
+
+                $restaurant->description = strip_tags($restaurant->description);
+                $restaurant->working_hours = strip_tags($restaurant->working_hours);
+            }
+
         } catch (RepositoryException $e) {
             return $this->sendError($e->getMessage());
         }
@@ -100,6 +106,10 @@ class RestaurantAPIController extends Controller
         // $categories = Restaurant::where('id',$rid)->with('categories')->get();
         $categories = Category::join('restaurant_categories','categories.id','=','restaurant_categories.category_id')
                 ->where('restaurant_categories.restaurant_id','=',$rid)->get();
+        foreach ($categories as $category) {
+
+                $category->description = strip_tags($category->description);
+            }
         return $this->sendResponse($categories->toArray(),'Restaurant categories retrieved successfully');
     }
 
@@ -122,6 +132,8 @@ class RestaurantAPIController extends Controller
         foreach ($foods as $food ){
             // code...
             $food->food_id = $food->id;
+            $food->description = strip_tags($food->description);
+            $food->ingredients = strip_tags($food->ingredients);
         }
         return $this->sendResponse($foods->toArray(),'Restaurant foods retrieved successfully');
     }
@@ -143,6 +155,10 @@ class RestaurantAPIController extends Controller
         $foods = Food::join('restaurant_foods','foods.id','=','restaurant_foods.food_id')
         ->where('restaurant_foods.restaurant_id','=',$rid)
         ->where('foods.featured','=','1')->get();
+        foreach ($foods as $food) {
+            $food->description = strip_tags($food->description);
+            $food->ingredients = strip_tags($food->ingredients);
+        }
         return $this->sendResponse($foods->toArray(),'Restaurant featured foods retrieved successfully');
     }
 
@@ -180,16 +196,25 @@ class RestaurantAPIController extends Controller
 
     public function getdetails($rid){
         
-        $restaurant = Restaurant::where('id',$rid)
+        $restaurants = Restaurant::where('id',$rid)
                     ->with('categories')
                     ->with('restaurantReviews')
                     ->with('foods')
                     ->get();
-        foreach ($restaurant[0]->foods as $rest) {
+        foreach ($restaurants[0]->foods as $rest) {
             $rest->food_id = $rest->id;
+            $rest->description = strip_tags($rest->description);
+            $rest->ingredients = strip_tags($rest->ingredients);
+        }
+        foreach ($restaurants as $restaurant) {
+            $restaurant->description = strip_tags($restaurant->description);
+            $restaurant->working_hours = strip_tags($restaurant->working_hours);
+        }
+        foreach ($restaurants[0]->categories as $category) {
+            $category->description = strip_tags($category->description);
         }
                     
-        return $this->sendResponse($restaurant[0],'Restaurant retrieved successfully');
+        return $this->sendResponse($restaurants[0],'Restaurant retrieved successfully');
     }
 
     /**
@@ -215,6 +240,9 @@ class RestaurantAPIController extends Controller
                     $food->discount_percentage = round($percentage);
                 }
             }
+
+            $food->description = strip_tags($food->description);
+            $food->ingredients = strip_tags($food->ingredients);
             
             
         }
@@ -249,6 +277,12 @@ class RestaurantAPIController extends Controller
 
         if (empty($restaurant)) {
             return $this->sendError('Restaurant not found');
+        }
+
+        foreach ($restaurant as $rest) {
+            // code...
+            $rest->description = strip_tags($rest->description);
+            $rest->working_hours = strip_tags($rest->working_hours);
         }
 
         return $this->sendResponse($restaurant->toArray(), 'Restaurant retrieved successfully');
