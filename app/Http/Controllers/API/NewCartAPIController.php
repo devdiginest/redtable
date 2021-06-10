@@ -170,6 +170,33 @@ class NewCartAPIController extends Controller
             }
     }
 
+    // Clear Cart
+
+    public function clearcart(Request $request){
+        $validator = Validator::make($request->all(), [
+                'user_id'           => 'required|int|exists:users,id'
+            ]);
+
+            if ($validator->fails()) {
+
+                return $this->sendError($validator->errors());
+                
+            }
+
+            try {
+                $id = $request->input('user_id');
+
+                $clearCart = Cart::where('user_id', $id)->delete();
+
+                return $this->sendResponse($clearCart,'Cart Cleared');
+
+            } catch (\Exception $e) {
+                echo $e;
+                return $this->sendError('failed to clear cart');
+            }
+
+    }
+
      public function delete($id) {
 
             $cart = Cart::find($id);

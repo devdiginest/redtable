@@ -87,6 +87,7 @@ Route::get('carts', 'API\NewCartAPIController@index');
 Route::post('carts', 'API\NewCartAPIController@create');
 Route::put('carts', 'API\NewCartAPIController@edit');
 Route::delete('carts/{id}', 'API\NewCartAPIController@delete');
+Route::post('clear_cart', 'API\NewCartAPIController@clearcart');
 
 // Order
 
