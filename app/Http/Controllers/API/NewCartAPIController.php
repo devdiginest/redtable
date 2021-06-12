@@ -97,7 +97,8 @@ class NewCartAPIController extends Controller
             'cartDetails'   => $cartDetails,
             'cartTotal'     => $total,
             'cartDiscount'  => $discount,
-            'deliveryFee'   => $deliveryFee,
+            'deliveryFee'   => (int)$deliveryFee,
+            'tax'           => $restTax,
             'totalBill'     => $totalBill,
         ], 'Cart details retrieved successfully');
     }
