@@ -46,7 +46,7 @@ class UserAPIController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'email'    => 'required|email',
+                'email'    => 'required|email|exists:users,email',
                 'password' => 'required'
             ]);
 
