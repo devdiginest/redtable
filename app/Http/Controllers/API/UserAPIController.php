@@ -51,7 +51,7 @@ class UserAPIController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return response()->json($validator->errors());
+                return $this->sendError($validator->errors(), 409);
             }
 
             if (auth()->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
