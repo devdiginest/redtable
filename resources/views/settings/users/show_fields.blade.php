@@ -30,6 +30,14 @@
   </div>
 </div>
 
+<!-- Phone Field -->
+<div class="form-group row col-6">
+  {!! Form::label('phone', 'Phone:', ['class' => 'col-3 control-label text-right']) !!}
+  <div class="col-9">
+    <p>{!! $user->phone !!}</p>
+  </div>
+</div>
+
 <!-- Api Token Field -->
 <div class="form-group row col-6">
   {!! Form::label('api_token', 'Api Token:', ['class' => 'col-3 control-label text-right']) !!}

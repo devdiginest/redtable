@@ -2,7 +2,7 @@
 /**
  * File name: User.php
  * Last modified: 2020.06.11 at 16:10:52
- * Author: SmarterVision - https://codecanyon.net/user/smartervision
+ * Author: diginestsolutions - https://diginestsolutions.com
  * Copyright (c) 2020
  */
 
@@ -56,6 +56,7 @@ class User extends Authenticatable implements HasMedia
     public $fillable = [
         'name',
         'email',
+        'phone',
         'password',
         'api_token',
         'device_token',
@@ -69,6 +70,7 @@ class User extends Authenticatable implements HasMedia
         'name' => 'string',
         'email' => 'string',
         'password' => 'string',
+        'phone' => 'string',
         'api_token' => 'string',
         'device_token' => 'string',
         'remember_token' => 'string'
