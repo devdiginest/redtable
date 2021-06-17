@@ -36,7 +36,7 @@
     </div>
 
     <!-- Password Field -->
-    <div class="form-group row ">
+    <!-- <div class="form-group row ">
         {!! Form::label('password', trans("lang.user_password"), ['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
             {!! Form::password('password', ['class' => 'form-control','placeholder'=>  trans("lang.user_password_placeholder")]) !!}
@@ -44,18 +44,20 @@
                 {{ trans("lang.user_password_help") }}
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <!-- Default Address Field -->
+    
+@if($roleName['0'] == 'client')         
+      <!-- Default Address Field -->
    <div class="form-group row ">
         {!! Form::label('address', trans("lang.user_address"), ['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
-            {!! Form::text('address', $address->address,  ['class' => 'form-control','placeholder'=>  trans("lang.user_address_placeholder")]) !!}
-            <div class="form-text text-muted">
-                {{ trans("lang.user_address_help") }}
-            </div>
+            {!! Form::text('address', $address->address,  ['class' => 'form-control','readonly','placeholder'=>  trans("lang.user_address_placeholder")]) !!}
+            
         </div>
-    </div>
+    </div>     
+@endif
+    
 
 </div>
 <div style="flex: 50%;max-width: 50%;padding: 0 4px;" class="column">
@@ -119,13 +121,13 @@
 @endprepend
     @can('permissions.index')
 <!-- Roles Field -->
-    <div class="form-group row ">
+    <!-- <div class="form-group row ">
         {!! Form::label('roles[]', trans("lang.user_role_id"),['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
             {!! Form::select('roles[]', $role, $rolesSelected, ['class' => 'select2 form-control' , 'multiple'=>'multiple']) !!}
             <div class="form-text text-muted">{{ trans("lang.user_role_id_help") }}</div>
         </div>
-    </div>
+    </div> -->
     @endcan
 
 </div>

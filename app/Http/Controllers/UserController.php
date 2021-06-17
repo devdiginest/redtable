@@ -75,6 +75,9 @@ class UserController extends Controller
         $customFields = false;
         $role = $this->roleRepository->pluck('name', 'name');
         $rolesSelected = $user->getRoleNames()->toArray();
+
+        $roleName = $user->getRoleNames();
+
         $customFieldsValues = $user->customFieldsValues()->with('customField')->get();
         //dd($customFieldsValues);
         $hasCustomField = in_array($this->userRepository->model(), setting('custom_field_models', []));
@@ -82,7 +85,7 @@ class UserController extends Controller
             $customFields = $this->customFieldRepository->findByField('custom_field_model', $this->userRepository->model());
             $customFields = generateCustomField($customFields, $customFieldsValues);
         }
-        return view('settings.users.profile', compact(['user', 'role', 'rolesSelected', 'customFields', 'customFieldsValues']));
+        return view('settings.users.profile', compact(['user', 'role', 'roleName', 'rolesSelected', 'customFields', 'customFieldsValues']));
     }
 
     /**
@@ -201,8 +204,10 @@ class UserController extends Controller
         $role = $this->roleRepository->pluck('name', 'name');
         $rolesSelected = $user->getRoleNames()->toArray();
 
+        $roleName = $user->getRoleNames();
+
         $address = DeliveryAddress::where('user_id',$id)->where('is_default',1)->first();
-        // $address = $deliveryAddress->address;
+        
         $customFieldsValues = $user->customFieldsValues()->with('customField')->get();
         $customFields = $this->customFieldRepository->findByField('custom_field_model', $this->userRepository->model());
         $hasCustomField = in_array($this->userRepository->model(), setting('custom_field_models', []));
@@ -218,8 +223,8 @@ class UserController extends Controller
         return view('settings.users.edit')
             ->with('user', $user)->with("role", $role)
             ->with("rolesSelected", $rolesSelected)
+            ->with("roleName", $roleName)
             ->with("address", $address)
-            // ->with("address", $address)
             ->with("customFields", $html);
     }
 
