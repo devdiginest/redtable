@@ -46,10 +46,16 @@
         </div>
     </div>
 
-    <!-- Password Field -->
-    {{$address}}
-
-   <textarea name="address">{{$address}}</textarea>
+    <!-- Default Address Field -->
+   <div class="form-group row ">
+        {!! Form::label('address', trans("lang.user_address"), ['class' => 'col-3 control-label text-right']) !!}
+        <div class="col-9">
+            {!! Form::text('address', $address->address,  ['class' => 'form-control','placeholder'=>  trans("lang.user_address_placeholder")]) !!}
+            <div class="form-text text-muted">
+                {{ trans("lang.user_address_help") }}
+            </div>
+        </div>
+    </div>
 
 </div>
 <div style="flex: 50%;max-width: 50%;padding: 0 4px;" class="column">

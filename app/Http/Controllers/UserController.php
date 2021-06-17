@@ -201,8 +201,8 @@ class UserController extends Controller
         $role = $this->roleRepository->pluck('name', 'name');
         $rolesSelected = $user->getRoleNames()->toArray();
 
-        $deliveryAddress = DeliveryAddress::where('user_id',$id)->where('is_default',1)->first();
-        $address = $deliveryAddress->address;
+        $address = DeliveryAddress::where('user_id',$id)->where('is_default',1)->first();
+        // $address = $deliveryAddress->address;
         $customFieldsValues = $user->customFieldsValues()->with('customField')->get();
         $customFields = $this->customFieldRepository->findByField('custom_field_model', $this->userRepository->model());
         $hasCustomField = in_array($this->userRepository->model(), setting('custom_field_models', []));
@@ -219,6 +219,7 @@ class UserController extends Controller
             ->with('user', $user)->with("role", $role)
             ->with("rolesSelected", $rolesSelected)
             ->with("address", $address)
+            // ->with("address", $address)
             ->with("customFields", $html);
     }
 
