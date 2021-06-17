@@ -47,8 +47,8 @@ class OrderDataTable extends DataTable
             ->editColumn('tax', function ($order) {
                 return $order->tax . "%";
             })
-            ->editColumn('payment.status', function ($order) {
-                return getPayment($order->payment,'status');
+            ->editColumn('orderTypes.name', function ($order) {
+                return $order->orderTypes->name;
             })
             
             ->editColumn('active', function ($food) {
@@ -92,9 +92,9 @@ class OrderDataTable extends DataTable
 
             ],
             [
-                'data' => 'payment.status',
-                'name' => 'payment.status',
-                'title' => trans('lang.payment_status'),
+                'data' => 'orderTypes.name',
+                'name' => 'orderTypes.name',
+                'title' => trans('lang.order_type'),
 
             ],
             [
@@ -141,7 +141,7 @@ class OrderDataTable extends DataTable
     public function query(Order $model)
     {
         if (auth()->user()->hasRole('admin')) {
-            return $model->newQuery()->with("user")->with("orderStatus")->with('payment')->with("restaurant");
+            return $model->newQuery()->with("user")->with("orderStatus")->with('payment')->with('orderTypes')->with("restaurant");
         } else if (auth()->user()->hasRole('manager')) {
             return $model->newQuery()->with("user")->with("orderStatus")->with('payment')
                 ->join("food_orders", "orders.id", "=", "food_orders.order_id")

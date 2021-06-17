@@ -33,6 +33,7 @@ use Illuminate\Support\Facades\Response;
 use Prettus\Validator\Exceptions\ValidatorException;
 
 use App\Models\FoodOrder;
+use App\Models\OrderType;
 use App\Stock;
 
 class OrderController extends Controller
@@ -139,6 +140,8 @@ class OrderController extends Controller
     {
         $this->orderRepository->pushCriteria(new OrdersOfUserCriteria(auth()->id()));
         $order = $this->orderRepository->findWithoutFail($id);
+        $getType = OrderType::where('id',$order->order_type)->first();
+        $order->type = $getType->name;
         if (empty($order)) {
             Flash::error(__('lang.not_found', ['operator' => __('lang.order')]));
 

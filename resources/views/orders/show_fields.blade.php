@@ -30,7 +30,6 @@
         <p>{!! $order->delivery_note !!}</p>
     </div>
 
-
 </div>
 
 <!-- Order Status Id Field -->
@@ -58,10 +57,13 @@
     <div class="col-8">
     <p>{!! isset($order->payment) ? $order->payment->status : trans('lang.order_not_paid')  !!}</p>
   </div>
-    {!! Form::label('order_updated_date', trans('lang.order_updated_at'), ['class' => 'col-4 control-label']) !!}
+
+   {!! Form::label('Order Type', trans('Order Type'), ['class' => 'col-4 control-label']) !!}
     <div class="col-8">
-        <p>{!! $order->updated_at !!}</p>
+        <p>{!! $order->type !!}</p>
     </div>
+
+   
 
 
 </div>
@@ -94,6 +96,11 @@
     {!! Form::label('hint', 'Hint:', ['class' => 'col-4 control-label']) !!}
     <div class="col-8">
         <p>{!! $order->hint !!}</p>
+    </div>
+
+     {!! Form::label('order_updated_date', trans('lang.order_updated_at'), ['class' => 'col-4 control-label']) !!}
+    <div class="col-8">
+        <p>{!! $order->updated_at !!}</p>
     </div>
 
 </div>

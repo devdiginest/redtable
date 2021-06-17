@@ -51,7 +51,6 @@ class UserAPIController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return($validator->errors()->email);
                 return $this->sendError($validator->errors(), 409);
             }
 

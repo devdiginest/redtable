@@ -24,6 +24,17 @@
         </div>
     </div>
 
+    <!-- Mobile Field -->
+    <div class="form-group row ">
+        {!! Form::label('phone', trans("lang.user_phone"), ['class' => 'col-3 control-label text-right']) !!}
+        <div class="col-9">
+            {!! Form::text('phone', null,  ['class' => 'form-control','placeholder'=>  trans("lang.user_phone_placeholder")]) !!}
+            <div class="form-text text-muted">
+                {{ trans("lang.user_phone_help") }}
+            </div>
+        </div>
+    </div>
+
     <!-- Password Field -->
     <div class="form-group row ">
         {!! Form::label('password', trans("lang.user_password"), ['class' => 'col-3 control-label text-right']) !!}
@@ -34,6 +45,12 @@
             </div>
         </div>
     </div>
+
+    <!-- Password Field -->
+    {{$address}}
+
+   <textarea name="address">{{$address}}</textarea>
+
 </div>
 <div style="flex: 50%;max-width: 50%;padding: 0 4px;" class="column">
     <!-- $FIELD_NAME_TITLE$ Field -->
@@ -106,14 +123,7 @@
     @endcan
 
 </div>
-@if($customFields)
-    {{--TODO generate custom field--}}
-    <div class="clearfix"></div>
-    <div class="col-12 custom-field-container">
-        <h5 class="col-12 pb-4">{!! trans('lang.custom_field_plural') !!}</h5>
-        {!! $customFields !!}
-    </div>
-@endif
+
 <!-- Submit Field -->
 <div class="form-group col-12 text-right">
     <button type="submit" class="btn btn-{{setting('theme_color')}}"><i class="fa fa-save"></i> {{trans('lang.save')}} {{trans('lang.user')}}</button>

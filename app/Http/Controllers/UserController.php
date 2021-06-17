@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use Prettus\Validator\Exceptions\ValidatorException;
 
+use App\Models\DeliveryAddress;
+
 class UserController extends Controller
 {
     /** @var  UserRepository */
@@ -198,6 +200,9 @@ class UserController extends Controller
         $html = false;
         $role = $this->roleRepository->pluck('name', 'name');
         $rolesSelected = $user->getRoleNames()->toArray();
+
+        $deliveryAddress = DeliveryAddress::where('user_id',$id)->where('is_default',1)->first();
+        $address = $deliveryAddress->address;
         $customFieldsValues = $user->customFieldsValues()->with('customField')->get();
         $customFields = $this->customFieldRepository->findByField('custom_field_model', $this->userRepository->model());
         $hasCustomField = in_array($this->userRepository->model(), setting('custom_field_models', []));
@@ -213,6 +218,7 @@ class UserController extends Controller
         return view('settings.users.edit')
             ->with('user', $user)->with("role", $role)
             ->with("rolesSelected", $rolesSelected)
+            ->with("address", $address)
             ->with("customFields", $html);
     }
 
