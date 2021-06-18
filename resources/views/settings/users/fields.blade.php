@@ -2,7 +2,18 @@
     <h5 class="col-12 pb-4">{!! trans('lang.main_fields') !!}</h5>
 @endif
 <div style="flex: 50%;max-width: 50%;padding: 0 4px;" class="column">
+    @if($roleName['0'] == 'client')
     <!-- Name Field -->
+    <div class="form-group row ">
+        {!! Form::label('name', trans("lang.user_name"), ['class' => 'col-3 control-label text-right']) !!}
+        <div class="col-9">
+            {!! Form::text('name', null,  ['class' => 'form-control', 'readonly', 'placeholder'=>  trans("lang.user_name_placeholder")]) !!}
+            <div class="form-text text-muted">
+                {{ trans("lang.user_name_help") }}
+            </div>
+        </div>
+    </div>
+    @else
     <div class="form-group row ">
         {!! Form::label('name', trans("lang.user_name"), ['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
@@ -12,7 +23,19 @@
             </div>
         </div>
     </div>
-
+    @endif
+    @if($roleName['0'] == 'client')
+    <!-- Email Field -->
+    <div class="form-group row ">
+        {!! Form::label('email', trans("lang.user_email"), ['class' => 'col-3 control-label text-right']) !!}
+        <div class="col-9">
+            {!! Form::text('email', null,  ['class' => 'form-control', 'readonly', 'placeholder'=>  trans("lang.user_email_placeholder")]) !!}
+            <div class="form-text text-muted">
+                {{ trans("lang.user_email_help") }}
+            </div>
+        </div>
+    </div>
+    @else
     <!-- Email Field -->
     <div class="form-group row ">
         {!! Form::label('email', trans("lang.user_email"), ['class' => 'col-3 control-label text-right']) !!}
@@ -23,8 +46,19 @@
             </div>
         </div>
     </div>
-
+    @endif
+    @if($roleName['0'] == 'client')
     <!-- Mobile Field -->
+    <div class="form-group row ">
+        {!! Form::label('phone', trans("lang.user_phone"), ['class' => 'col-3 control-label text-right']) !!}
+        <div class="col-9">
+            {!! Form::text('phone', null,  ['class' => 'form-control', 'readonly', 'placeholder'=>  trans("lang.user_phone_placeholder")]) !!}
+            <div class="form-text text-muted">
+                {{ trans("lang.user_phone_help") }}
+            </div>
+        </div>
+    </div>
+    @else
     <div class="form-group row ">
         {!! Form::label('phone', trans("lang.user_phone"), ['class' => 'col-3 control-label text-right']) !!}
         <div class="col-9">
@@ -34,6 +68,7 @@
             </div>
         </div>
     </div>
+    @endif
 
     <!-- Password Field -->
     <!-- <div class="form-group row ">

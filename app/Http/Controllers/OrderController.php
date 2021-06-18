@@ -34,6 +34,7 @@ use Prettus\Validator\Exceptions\ValidatorException;
 
 use App\Models\FoodOrder;
 use App\Models\OrderType;
+use App\Models\Area;
 use App\Stock;
 
 class OrderController extends Controller
@@ -142,6 +143,13 @@ class OrderController extends Controller
         $order = $this->orderRepository->findWithoutFail($id);
         $getType = OrderType::where('id',$order->order_type)->first();
         $order->type = $getType->name;
+        if($order->delivery_address_id != null){
+        $addressId = $order->deliveryAddress->id;
+        
+            $area = Area::where('id',$addressId)->select('name')->first();
+            $order->area = $area->name;
+        }
+        
         if (empty($order)) {
             Flash::error(__('lang.not_found', ['operator' => __('lang.order')]));
 

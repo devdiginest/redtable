@@ -337,6 +337,7 @@ return [
     'delete' => 'Delete',
     'deleted_successfully' => 'Deleted successfully',
     'delivery_address' => 'Delivery Address',
+    'delivery_area' => 'Delivery Area',
     'delivery_address_address' => 'Address',
     'delivery_address_address_help' => 'Insert Address',
     'delivery_address_address_placeholder' => 'Insert Address',

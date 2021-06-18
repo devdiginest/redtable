@@ -137,9 +137,11 @@ class CouponAPIController extends Controller
                 return $this->sendResponse(
                     [
                     'cartTotal'     => $itemTotal,
-                    'cartDiscount'  => $discountRate,
+                    'cartDiscount'  => number_format((float)$discountRate, 2, '.', ''),
                     'deliveryFee'   => $deliveryFee,
-                    'totalBill'     => $totalBill,
+                    'taxPercentage' => $restaurantTax->default_tax,
+                    'tax'           => number_format((float)$taxRate, 2, '.', ''),
+                    'totalBill'     => number_format((float)$totalBill, 2, '.', ''),
                 ], 'Cart Updated successfully');
 
                 } catch (\Exception $e) {

@@ -53,6 +53,11 @@
     <p>{!! isset($order->payment) ? $order->payment->method : ''  !!}</p>
   </div>
 
+  {!! Form::label('delivery_area', trans('lang.delivery_area'), ['class' => 'col-4 control-label']) !!}
+    <div class="col-8">
+    <p>{!! $order->deliveryAddress ? $order->area : '' !!}</p>
+  </div>
+
     {!! Form::label('payment_status', trans('lang.payment_status'), ['class' => 'col-4 control-label']) !!}
     <div class="col-8">
     <p>{!! isset($order->payment) ? $order->payment->status : trans('lang.order_not_paid')  !!}</p>

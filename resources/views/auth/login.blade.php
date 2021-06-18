@@ -93,9 +93,9 @@
             <p class="mb-1 text-center">
                 <a href="{{ url('/password/reset') }}">{{__('auth.forgot_password')}}</a>
             </p>
-            <p class="mb-0 text-center">
+            <!-- <p class="mb-0 text-center">
                 <a href="{{ url('/register') }}" class="text-center">{{__('auth.register_new_member')}}</a>
-            </p>
+            </p> -->
         </div>
     </div>
 @endsection

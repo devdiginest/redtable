@@ -96,10 +96,11 @@ class NewCartAPIController extends Controller
             [
             'cartDetails'   => $cartDetails,
             'cartTotal'     => $total,
-            'cartDiscount'  => $discount,
-            'deliveryFee'   => (int)$deliveryFee,
-            'tax'           => $restTax,
-            'totalBill'     => $totalBill,
+            'cartDiscount'  => number_format((float)$discount, 2, '.', ''),
+            // 'deliveryFee'   => (int)$deliveryFee,
+            'taxPercentage' => $restTax,
+            'tax'           => number_format((float)$taxRate, 2, '.', ''),
+            'totalBill'     => number_format((float)$totalBill, 2, '.', ''),
         ], 'Cart details retrieved successfully');
     }
 
