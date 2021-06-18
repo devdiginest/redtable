@@ -27,6 +27,7 @@ use Prettus\Validator\Exceptions\ValidatorException;
 
 use App\Models\Meal;
 use App\Models\RestaurantCategory;
+use App\Stock;
 
 class FoodController extends Controller
 {
@@ -123,6 +124,10 @@ class FoodController extends Controller
         $customFields = $this->customFieldRepository->findByField('custom_field_model', $this->foodRepository->model());
         try {
             
+
+
+            $food = $this->foodRepository->create($input);
+
             foreach ($restArray as $restaurants) {
 
                 $resCats = RestaurantCategory::where('restaurant_id',$restaurants)->where('category_id',$input['category_id'])->first();
@@ -133,9 +138,14 @@ class FoodController extends Controller
                     $resCategory->restaurant_id = $restaurants;
                     $resCategory->save();
                 }
+
+                $stock = new Stock;
+                $stock->food_id = $food->id;
+                $stock->restaurant_id = $restaurants;
+                $stock->quantity = 0;
+                $stock->save();
             }
 
-            $food = $this->foodRepository->create($input);
 
             $food->customFieldsValues()->createMany(getCustomFieldsValues($customFields, $request));
             if (isset($input['image']) && $input['image']) {
